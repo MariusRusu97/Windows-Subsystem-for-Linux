@@ -1,6 +1,6 @@
 https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/
 Blog by Jack Hammons, April 22, 2016
-Video featuring Deepu Thomas
+(Video featuring Deepu Thomas)
 
 Background Story
 

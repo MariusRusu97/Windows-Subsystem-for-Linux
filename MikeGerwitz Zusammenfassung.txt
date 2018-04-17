@@ -1,0 +1,14 @@
+https://mikegerwitz.com/2016/04/GNU-kWindows
+4.6.2016, Mike Gerwitz
+
+We have a free/libre operating system called GNU. Usually, it’s used with the kernel Linux, and is together called the GNU/Linux (or GNU+Linux) operating system. But now, we have a situation where we’re taking GNU/Linux, removing Linux, and adding in its place a Windows kernel. This combination is referred to as GNU/kWindows (GNU with the Windows kernel added).
+
+When users talk about the operating system “Linux”, what they are referring to is the GNU operating system with the kernel Linux added. If you are using the GNU operating system in some form, then many of the programs you are familiar with on the command line are GNU programs. Linux is the kernel that supports what the operating system is trying to do; it provides what are called system calls to direct the kernel to perform certain actions.
+
+Microsoft and Canonical have apparently been working together to write a subsystem that translates Linux system calls into something Windows will understand—a compatibility layer. So, software compiled to run on a system with the kernel Linux will work on Windows through system call translation. 
+
+This is undoubtedly a technical advantage for Microsoft—Windows users want to do their computing in a superior environment that they might be familiar with on GNU/Linux or other Unix-like operating systems.
+
+So why would users want to use GNU/kWindows? Well, probably for the same reason that they want GNU tools on Mac OSX: they want to use software they want to use, but they also want the technical benefits of GNU that they like. 
+
+If a user is already using Windows (that is, before considering GNU/kWindows), then she does gain some freedom by installing GNU: she has more software on her system that respects her freedoms, and she is better off because of that.

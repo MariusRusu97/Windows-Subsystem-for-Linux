@@ -68,10 +68,25 @@ LNI Guidelines \and \LaTeX Vorlage
 
 
 \subsection{General Concept}
-"WSL is a collection of [user mode and kernel mode] components that enables native Linux ELF64 binaries to run on Windows."\footnote{} User mode being lower privileged and depending on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. On the user mode half we have the bash.exe running on Windows and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However through a process of virtualization those system calls can be executed directly on the Windows Kernel.
+"WSL is a collection of [user mode and kernel mode] components that enables native Linux ELF64 binaries to run on Windows."\footnote{} User mode being lower privileged and depending on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed, wich are called system calls. On the user mode half we have the bash.exe running on Windows and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However through a process of virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. (vgl. https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/, 18.04.2018 19.32 Uhr) 
 
 \subsection{Basic Architecture}
-The user initiates a Linux instance by launching the bash.exe on Windows. This Linux instance, which is unique for every user is located inside the so called Pico process and hosts the Linux type /bin/bash process. System calls are issued by the bin/bash process and handled by the so called LXCore/LXSS. As mentioned, those system calls are native Linux sytem calls. Therefore the LXCore/LXSS maps those system calls to an equivalent Windows system call to run on the Windows Kernel. However this is not always possible e.g. the operation fork() does not have a Windows eqiuvalent. In that case the Windows Kernel has to handle the system call directly and satisfy its needs.
+
+Windows Subsystem for Linux \glqq is primarily comprised of: 
+\begin{enumerate}
+    \item User mode session manager service [...]
+    \item Pico provider drivers [...]
+    \item Pico processes [...] \grqq\footnote{}
+\end{enumerate}
+
+The user initiates a Linux instance by launching the bash.exe on Windows. This Linux instance, which is unique for every user is located inside the so called Pico process and hosts the Linux type /bin/bash process. 
+
+(System calls are issued by the bin/bash process and handled by the so called LXCore/LXSS.) 
+
+\glqq By placing unmodified Linux binaries in Pico processes we enable Linux system calls to be directed into the Windows kernel.\grqq \footnote{} This happens through the handling of the so called LXCore/lxss drivers, that work in kernel mode. 
+Pico Processes themselfs are minimal processes being empty user mode adress taken the view of the Windows kernel. They also have their own pico provider kernel-mode driver. In our case those are the LXCore/lxss drivers. That's why it's safe to say, that
+\glqq Pico processes and drivers provide the foundation for the Windows Subsystem for Linux [...]. \grqq \footnote{}
+As mentioned, those system calls are native Linux sytem calls. Therefore the LXCore/LXSS drivers being an emulation of the Linux Kernel (vgl. https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/) map those system calls to an equivalent Windows system call to run on the Windows Kernel. However this is not always possible e.g. the operation fork() does not have a Windows eqiuvalent. In that case the Windows Kernel has to handle the system call directly and satisfy its needs.
 
 \subsection{Implementation of its components}
 

@@ -7,7 +7,7 @@
 \documentclass[utf8,biblatex]{lni}
 \bibliography{lni-paper-example-de}
 
-%% Schöne Tabellen mittels \toprule, \midrule, \bottomrule
+%% SchÃ¶ne Tabellen mittels \toprule, \midrule, \bottomrule
 \usepackage{booktabs}
 
 %% Zu Demonstrationszwecken
@@ -15,7 +15,7 @@
 \usepackage{mwe}
 
 %% BibLaTeX-Sonderkonfiguration,
-%% falls man schnell eine existierende Bibliographie wiederverwenden will, aber nicht die .bib-Datei händisch anpassen möchte.
+%% falls man schnell eine existierende Bibliographie wiederverwenden will, aber nicht die .bib-Datei hÃ¤ndisch anpassen mÃ¶chte.
 %% Bitte \iffalse und \fi entfernen, dann ist diese Konfiguration aktiviert.
 
 \iffalse
@@ -39,14 +39,14 @@
 
 \begin{document}
 %%% Mehrere Autoren werden durch \and voneinander getrennt.
-%%% Die Fußnote enthält die Adresse sowie eine E-Mail-Adresse.
-%%% Das optionale Argument (sofern angegeben) wird für die Kopfzeile verwendet.
+%%% Die FuÃŸnote enthÃ¤lt die Adresse sowie eine E-Mail-Adresse.
+%%% Das optionale Argument (sofern angegeben) wird fÃ¼r die Kopfzeile verwendet.
 \title[Ein Kurztitel]{Windows Subsystem for Linux}
-%%%\subtitle{Untertitel / Subtitle} % falls benötigt
+%%%\subtitle{Untertitel / Subtitle} % falls benÃ¶tigt
 \author[Marius Rusu \and Julia Sommer]
-{Marius Rusu\footnote{Ludwig-Maximilian-Universität München, Fakultät für Informatik, Oettingenstraße 67, 80538 München, Deutschland \email{rusu.marius97@gmail.com}} \and
- Julia Sommer\footnote{Technische Universität München, Fakultät für Informatik, Boltzmanstraße 3, 85748 Garching, Deutschland \email{sommerjulia99@gmail.com}}}
-\startpage{11} % Beginn der Seitenzählung für diesen Beitrag
+{Marius Rusu\footnote{Ludwig-Maximilian-UniversitÃ¤t MÃ¼nchen, FakultÃ¤t fÃ¼r Informatik, OettingenstraÃŸe 67, 80538 MÃ¼nchen, Deutschland \email{rusu.marius97@gmail.com}} \and
+ Julia Sommer\footnote{Technische UniversitÃ¤t MÃ¼nchen, FakultÃ¤t fÃ¼r Informatik, BoltzmanstraÃŸe 3, 85748 Garching, Deutschland \email{sommerjulia99@gmail.com}}}
+\startpage{11} % Beginn der SeitenzÃ¤hlung fÃ¼r diesen Beitrag
 \editor{Herausgeber et al.}    % Namen der Herausgeber
 \booktitle{Name-der-Konferenz} % Name des Tagungsband
 \year{2017}
@@ -54,9 +54,9 @@
 \maketitle
 
 \begin{abstract}
-Die \LaTeX-Klasse \texttt{lni} setzt die Layout-Vorgaben für Beiträge in LNI Konferenzbänden um.
-Dieses Dokument beschreibt ihre Verwendung und ist ein Beispiel für die entsprechende Darstellung.
-Der Abstract ist ein kurzer Überblick über die Arbeit der zwischen 70 und 150 Wörtern lang sein und das Wichtigste enthalten sollte.
+Die \LaTeX-Klasse \texttt{lni} setzt die Layout-Vorgaben fÃ¼r BeitrÃ¤ge in LNI KonferenzbÃ¤nden um.
+Dieses Dokument beschreibt ihre Verwendung und ist ein Beispiel fÃ¼r die entsprechende Darstellung.
+Der Abstract ist ein kurzer Ãœberblick Ã¼ber die Arbeit der zwischen 70 und 150 WÃ¶rtern lang sein und das Wichtigste enthalten sollte.
 Die Formatierung erfolgt automatisch innerhalb des abstract-Bereichs.
 \end{abstract}
 
@@ -68,27 +68,35 @@ LNI Guidelines \and \LaTeX Vorlage
 
 
 \subsection{General Concept}
-"WSL is a collection of [user mode and kernel mode] components that enables native Linux ELF64 binaries to run on Windows."\footnote{} User mode being lower privileged and depending on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed, wich are called system calls. On the user mode half we have the bash.exe running on Windows and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However through a process of virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. (vgl. https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/, 18.04.2018 19.32 Uhr) 
+"WSL is a collection of [user mode and kernel mode] components that enables native Linux ELF64 binaries to run on Windows."\footnote{} User mode being lower privileged and depending on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. (--, which are called system calls) On the user mode half of WSL we have the bash.exe running on Windows and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by (--through a process of) virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. (vgl. https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/, 18.04.2018 19.32 Uhr) 
 
 \subsection{Basic Architecture}
 
-Windows Subsystem for Linux \glqq is primarily comprised of: 
+(Windows Subsystem for Linux \glqq is primarily comprised of: 
 \begin{enumerate}
     \item User mode session manager service [...]
     \item Pico provider drivers [...]
     \item Pico processes [...] \grqq\footnote{}
-\end{enumerate}
+\end{enumerate})
 
-The user initiates a Linux instance by launching the bash.exe on Windows. This Linux instance, which is unique for every user is located inside the so called Pico process and hosts the Linux type /bin/bash process. 
+Windows Subsystem for Linux is primarily comprised of: 
+\begin{enumerate}
+    \item LX Session Manager
+    \item LXCore/LXSS
+    \item Pico processes
+\end{enumerate}\footnote{}
 
-(System calls are issued by the bin/bash process and handled by the so called LXCore/LXSS.) 
-
-\glqq By placing unmodified Linux binaries in Pico processes we enable Linux system calls to be directed into the Windows kernel.\grqq \footnote{} This happens through the handling of the so called LXCore/lxss drivers, that work in kernel mode. 
-Pico Processes themselfs are minimal processes being empty user mode adress taken the view of the Windows kernel. They also have their own pico provider kernel-mode driver. In our case those are the LXCore/lxss drivers. That's why it's safe to say, that
+The user initiates a Linux instance by launching the bash.exe on Windows. This Linux instance then calls the LXCore/LXSS which is a "[...] driver behaving like a Linux Kernel and working in coordination with the Windows Kernel. [The Driver] would then spin up a native Linux process [being] /bin/bash."\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} All other Linux application run under /bin/bash in the so called Linux Instance that "[...] you can think of as [...] a container or a virtualized operating system environement."\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
+\glqq By placing unmodified Linux binaries in Pico processes we enable Linux system calls to be directed into the Windows kernel.\grqq \footnote{} This happens through the handling of the (so called) LXCore/LXSS drivers (, that work in kernel mode). 
+(Pico Processes themselves are minimal processes being empty user mode adress taken the view of the Windows kernel.)
+A Pico process itself is an empty process that cannot be handled by the Windows kernel but instead is redirected to the LXCore/LXSS for handeling.\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
+(They also have their own pico provider kernel-mode driver. In our case those are the LXCore/LXSS drivers.) That's why it's safe to say, that
 \glqq Pico processes and drivers provide the foundation for the Windows Subsystem for Linux [...]. \grqq \footnote{}
-As mentioned, those system calls are native Linux sytem calls. Therefore the LXCore/LXSS drivers being an emulation of the Linux Kernel (vgl. https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/) map those system calls to an equivalent Windows system call to run on the Windows Kernel. However this is not always possible e.g. the operation fork() does not have a Windows eqiuvalent. In that case the Windows Kernel has to handle the system call directly and satisfy its needs.
+As mentioned, those system calls are native Linux sytem calls. Therefore the LXCore/LXSS drivers being an emulation of the Linux Kernel (vgl. https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/) map those system calls to an equivalent Windows system call to run on the Windows Kernel. However this is not always possible e.g. the operation fork() does not have a Windows eqiuvalent. In that case the Windows Kernel has to handle the system call directly and satisfy its needs. Since the Windows Kernel was originally designed to support multiple operating systems, Microsoft had to "[dust] [...] of old funtionality, [enhance] it for performance and correctness and it was able to [handle system calls like fork()] right away."\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
 
 \subsection{Implementation of its components}
+
+
 
 
 Dieses Dokument basiert auf der offiziellen Dokumentation, simplifiziert und setzt grundlegendes LaTeX-Wissen voraus.
@@ -100,10 +108,10 @@ Dieses Template ist wie folgt gegliedert:
 
 \section{Demonstrationen}
 \label{sec:demos}
-Das Symbol für Potenzmengen ($\powerset$) wird korrekt angezeigt.
-Es ist kein Weierstraß-p ($\wp$) mehr.
+Das Symbol fÃ¼r Potenzmengen ($\powerset$) wird korrekt angezeigt.
+Es ist kein WeierstraÃŸ-p ($\wp$) mehr.
 
-Spitze Klammen können direkt eingegeben werden: <test />
+Spitze Klammen kÃ¶nnen direkt eingegeben werden: <test />
 
 Hier eine kleine Demonstration von \href{https://www.ctan.org/pkg/microtype}{microtype}:
 \blindtext
@@ -112,16 +120,16 @@ Hier eine kleine Demonstration von \href{https://www.ctan.org/pkg/microtype}{mic
 \label{sec:lniconformance}
 
 \subsection{Literaturverzeichnis}
-Der letzte Abschnitt zeigt ein beispielhaftes Literaturverzeichnis für Bücher mit einem Autor \cite{Ez10} und zwei AutorInnen \cite{AB00}, einem Beitrag in Proceedings mit drei AutorInnen \cite{ABC01}, einem Beitrag in einem LNI Band mit mehr als drei AutorInnen \cite{Az09}, zwei Bücher mit den jeweils selben vier AutorInnen im selben Erscheinungsjahr \cite{Wa14} und \cite{Wa14b}, ein Journal \cite{Gl06}, eine Website \cite{GI14} bzw.\ anderweitige Literatur ohne konkrete AutorInnenschaft \cite{XX14}.
-Es wird biblatex verwendet, da es UTF8 sauber unterstützt und \href{https://github.com/gi-ev/LNI/issues/5}{im Gegensatz zu lni.bst} keine Fehler beim bibtexen auftreten.
+Der letzte Abschnitt zeigt ein beispielhaftes Literaturverzeichnis fÃ¼r BÃ¼cher mit einem Autor \cite{Ez10} und zwei AutorInnen \cite{AB00}, einem Beitrag in Proceedings mit drei AutorInnen \cite{ABC01}, einem Beitrag in einem LNI Band mit mehr als drei AutorInnen \cite{Az09}, zwei BÃ¼cher mit den jeweils selben vier AutorInnen im selben Erscheinungsjahr \cite{Wa14} und \cite{Wa14b}, ein Journal \cite{Gl06}, eine Website \cite{GI14} bzw.\ anderweitige Literatur ohne konkrete AutorInnenschaft \cite{XX14}.
+Es wird biblatex verwendet, da es UTF8 sauber unterstÃ¼tzt und \href{https://github.com/gi-ev/LNI/issues/5}{im Gegensatz zu lni.bst} keine Fehler beim bibtexen auftreten.
 
 Referenzen sollten nicht direkt als Subjekt eingebunden werden, sondern immer nur durch Authorenanganben:
 Beispiel: \Citet{AB00} geben ein Beispiel, aber auch \citet{Az09}.
-Hinweis: Großes C bei \texttt{Citet}, wenn es am Satzanfang steht. Dies ist analog zu \texttt{Cref}.
+Hinweis: GroÃŸes C bei \texttt{Citet}, wenn es am Satzanfang steht. Dies ist analog zu \texttt{Cref}.
 
-Formatierung und Abkürzungen werden für die Referenzen \texttt{book}, \texttt{inbook}, \texttt{proceedings}, \texttt{inproceedings}, \texttt{article}, \texttt{online} und \texttt{misc} automatisch vorgenommen.
-Mögliche Felder für Referenzen können der Beispieldatei \texttt{lni-paper-example-de.bib} entnommen werden.
-Andere Referenzen sowie Felder müssen allenfalls nachträglich angepasst werden.
+Formatierung und AbkÃ¼rzungen werden fÃ¼r die Referenzen \texttt{book}, \texttt{inbook}, \texttt{proceedings}, \texttt{inproceedings}, \texttt{article}, \texttt{online} und \texttt{misc} automatisch vorgenommen.
+MÃ¶gliche Felder fÃ¼r Referenzen kÃ¶nnen der Beispieldatei \texttt{lni-paper-example-de.bib} entnommen werden.
+Andere Referenzen sowie Felder mÃ¼ssen allenfalls nachtrÃ¤glich angepasst werden.
 
 \subsection{Abbildungen}
 \Cref{fig:demo} zeigt eine Abbildung.
@@ -140,20 +148,20 @@ Andere Referenzen sowie Felder müssen allenfalls nachträglich angepasst werden.
 \centering
 \begin{tabular}{lll}
 \toprule
-Überschriftsebenen & Beispiel & Schriftgröße und -art \\
+Ãœberschriftsebenen & Beispiel & SchriftgrÃ¶ÃŸe und -art \\
 \midrule
-Titel (linksbündig) & Der Titel \ldots & 14 pt, Fett\\
-Überschrift 1 & 1 Einleitung & 12 pt, Fett\\
-Überschrift 2 & 2.1 Titel & 10 pt, Fett\\
+Titel (linksbÃ¼ndig) & Der Titel \ldots & 14 pt, Fett\\
+Ãœberschrift 1 & 1 Einleitung & 12 pt, Fett\\
+Ãœberschrift 2 & 2.1 Titel & 10 pt, Fett\\
 \bottomrule
 \end{tabular}
-\caption{Die Überschriftsarten}
+\caption{Die Ãœberschriftsarten}
 \label{tab:demo}
 \end{table}
 
 \subsection{Programmcode}
-Die LNI-Formatvorlage verlangt die Einrückung von Listings vom linken Rand.
-In der \texttt{lni}-Dokumentenklasse ist dies für die \texttt{verbatim}-Umgebung realisiert.
+Die LNI-Formatvorlage verlangt die EinrÃ¼ckung von Listings vom linken Rand.
+In der \texttt{lni}-Dokumentenklasse ist dies fÃ¼r die \texttt{verbatim}-Umgebung realisiert.
 
 \begin{verbatim}
 public class Hello {
@@ -177,7 +185,7 @@ public class Hello {
 
 \subsection{Formeln und Gleichungen}
 
-Die korrekte Einrückung und Nummerierung für Formeln ist bei den Umgebungen \texttt{equation} und \texttt{eqnarray} gewährleistet.
+Die korrekte EinrÃ¼ckung und Nummerierung fÃ¼r Formeln ist bei den Umgebungen \texttt{equation} und \texttt{eqnarray} gewÃ¤hrleistet.
 
 \begin{equation}
   1=4-3

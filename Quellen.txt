@@ -1,0 +1,4 @@
+wichtig zu pico: https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/
+
+
+Pico Driver is a Driver behaving like a Linux Kernel and working in coordination with the Windows Kernel

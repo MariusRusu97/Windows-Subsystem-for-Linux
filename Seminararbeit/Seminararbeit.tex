@@ -68,7 +68,7 @@ LNI Guidelines \and \LaTeX Vorlage
 
 
 \subsection{General Concept}
-"WSL is a collection of [user mode and kernel mode] components that enables native Linux ELF64 binaries to run on Windows."\footnote{} User mode being lower privileged and depending on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. (--, which are called system calls) On the user mode half of WSL we have the bash.exe running on Windows and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by (--through a process of) virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. (vgl. https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/, 18.04.2018 19.32 Uhr) 
+"Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries to run on Windows."\footnote{} User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe running in user mode and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS running in kernel mode.\footnote{ https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/, 18.04.2018 19:32 Uhr}
 
 \subsection{Basic Architecture}
 
@@ -93,7 +93,7 @@ Windows Subsystem for Linux is primarily comprised of:
 \begin{figure}
   \centering
   \includegraphics[width=1\textwidth]{WSL Architecture.pdf}
-  \caption{Components of WSL}
+  \caption{Components of WSL\footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/}}
   \label{img:architecture}
 \end{figure}
 
@@ -125,12 +125,22 @@ In case of Windows subsystem for Linux this is exactly the point where pico proc
 
 \glqq VolFs is a file system that provides full support for Linux file system features, including Linux permissions that can be modified through operations such as chmod and chroot [etc].\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} Due to the fact that VolFs file system is not able to interoperate with Windows, a second file system named DriveFs is implemented. \glqq All fixed Windows volumes are mounted under /mnt [...] where users can access all Windows files.\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} To make this possible the DriveFs file system meets Windows requirements such as legal file names and Windows security but looses some of the Linux features.
 
+\section{Alternatives to Windows Subsystem for Linux}
+\subsection{Classical approach to virtualization}
 
+\subsection{Virtualization via Virtual Machine}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{VM.pdf}
+  \caption{Virtual Machine Overview\footnote{https://searchservervirtualization.techtarget.com/answer/Containers-vs-VMs-Whats-the-difference}}
+  \label{img:vm}
+\end{figure}
 
+\glqq The virtual machine concept allows the same computer to be shared as
+if it were several. IBM defined the virtual machine as a fully protected
+and isolated copy of the underlying physical machine’s hardware. \glqq\footnote{R. Rose, \glqq Survey of System Virtualization Techniques \glqq https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v}
 
-Dieses Dokument basiert auf der offiziellen Dokumentation, simplifiziert und setzt grundlegendes LaTeX-Wissen voraus.
-Es werden generische Platzhalter an die entsprechenden Stellen (wie beispielsweise die Authoren-Angaben) gesetzt und nicht weiter an anderer Stelle dokumentiert.
 
 Dieses Template ist wie folgt gegliedert:
 \Cref{sec:demos} zeigt Demonstrationen der LNI-Verlage.

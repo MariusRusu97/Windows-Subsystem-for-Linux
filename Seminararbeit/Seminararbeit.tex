@@ -93,7 +93,7 @@ Windows Subsystem for Linux is primarily comprised of:
 \begin{figure}
   \centering
   \includegraphics[width=1\textwidth]{WSL Architecture.pdf}
-  \caption{Components of WSL\footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/}}
+  \caption{Components of WSL}
   \label{img:architecture}
 \end{figure}
 
@@ -133,13 +133,24 @@ In case of Windows subsystem for Linux this is exactly the point where pico proc
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{VM.pdf}
-  \caption{Virtual Machine Overview\footnote{https://searchservervirtualization.techtarget.com/answer/Containers-vs-VMs-Whats-the-difference}}
+  \caption{Virtual Machine Overview}
   \label{img:vm}
 \end{figure}
 
-\glqq The virtual machine concept allows the same computer to be shared as
-if it were several. IBM defined the virtual machine as a fully protected
-and isolated copy of the underlying physical machine’s hardware. \glqq\footnote{R. Rose, \glqq Survey of System Virtualization Techniques \glqq https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v}
+\glqq The virtual machine concept allows the same computer to be shared as if it were several. IBM defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware. \glqq\footnote{R. Rose, \glqq Survey of System Virtualization Techniques \glqq https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v} 
+Therefore it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. \glqq The VMM [Virtual Machine Monitor] is the software component that hosts guest virtual machines.\glqq \footnote{https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v}
+According to Prof. Dr. Kranzmüller and Dr. Danciu the Virtual Machine Monitor is firstly responsible for coordinating the access of the guest operation systems on the host's hardware and secondly for handling traps. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the Virtual Machine Monitor emulates its function in order to be executed on the host operating system. \footnote{Skript!}
+
+\subsection{Virtualization via Container}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{Container.pdf}
+  \caption{Container Overview}
+  \label{img:container}
+\end{figure}
+
+Instead of a Virtual Machine Monitor there is a container engine, also called Docker engine running on top on the host operating system which can be seen in the image above. \glqq A container engine is a managed environment for deploying containerized applications. The container engine allocates cores and memory to containers [and] enforces spatial isolation and security [...] \glqq \footnote{https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-containers.html}
 
 
 Dieses Template ist wie folgt gegliedert:

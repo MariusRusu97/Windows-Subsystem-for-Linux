@@ -54,16 +54,15 @@
 \maketitle
 
 \begin{abstract}
-Die \LaTeX-Klasse \texttt{lni} setzt die Layout-Vorgaben für Beiträge in LNI Konferenzbänden um.
-Dieses Dokument beschreibt ihre Verwendung und ist ein Beispiel für die entsprechende Darstellung.
-Der Abstract ist ein kurzer Überblick über die Arbeit der zwischen 70 und 150 Wörtern lang sein und das Wichtigste enthalten sollte.
-Die Formatierung erfolgt automatisch innerhalb des abstract-Bereichs.
+
 \end{abstract}
 
 \begin{keywords}
 LNI Guidelines \and \LaTeX Vorlage
 \end{keywords}
+
 \section{Microsoft's reasons for WSL}
+
 \section{WSL - What is it?}
 
 
@@ -100,8 +99,8 @@ Windows Subsystem for Linux is primarily comprised of:
 
 As depicted in the image above, the user initiates the Windows Subsystem for Linux by launching the bash.exe on Windows. This application then calls the LXCore/LXSS (green arrow) which is a "[...] driver behaving like a Linux Kernel and working in coordination with the Windows Kernel. [The Driver] would then spin up a native Linux process [being] /bin/bash (purple arrow)."\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} All other Linux processes run under /bin/bash in the so called Linux Instance that "[...] you can think of as [...] a container or a virtualized operating system environment." \footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
 
-\glqq By wrapping unmodified Linux binaries into Pico processes we enable Linux system calls to be directed into the Windows kernel.\grqq \footnote{} A Pico process itself is an empty process, as far as the Windows kernel is concerned and therefore cannot be handled by the Windows kernel but instead is redirected to the LXCore/LXSS (red arrow).\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
-That's why it's safe to say, that \glqq Pico processes and drivers [LXCore/LXSS] provide the foundation for the Windows Subsystem for Linux [...]. \grqq \footnote
+\glqq By wrapping unmodified Linux binaries into pico processes we enable Linux system calls to be directed into the Windows kernel.\grqq \footnote{} A pico process itself is an empty process, as far as the Windows kernel is concerned and therefore cannot be handled by the Windows kernel but instead is redirected to the LXCore/LXSS (red arrow).\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
+It is safe to say, that \glqq pico processes and drivers [LXCore/LXSS] provide the foundation for the Windows Subsystem for Linux [...]. \grqq \footnote{}
 
 \begin{comment}
 
@@ -110,8 +109,6 @@ As mentioned, those system calls are native Linux system calls. Therefore the LX
 \end{comment}
 
 \subsection{Implementation of its components}
-
-Despite the fact that there is little known about the implementation of the Windows subsystem for Linux, we are trying to present the known facts as far as possible.
 
 \glqq The pico process concept originated in MSR [Microsoft Research] as part of the Drawbridge project. A goal of this project was to implement a lightweight way to run an application in an isolated environment, with the application’s OS dependencies decoupled from the underlying host OS\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} This was achieved, not by a Virtual machine, which would be too resource consuming but by \glqq run[ning] the target application and OS entirely within the user-mode address space of a single process on the host OS. \glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} \glqq The Drawbridge pico process is a lightweight, secure isolation container. It is built from an OS process address space, but with all traditional OS services removed. [...] All ABI [Application binary interface] calls are serviced by the security monitor, which plays a role similar to the hypervisor or VM monitor in traditional hardware VM designs.\glqq \footnote{https://www.microsoft.com/en-us/research/project/drawbridge/?from=http\%3A\%2F\%2Fresearch.microsoft.com\%2Fen-us\%2Fproject s\%2Fdrawbridge\%2F}
 
@@ -138,8 +135,7 @@ In case of Windows subsystem for Linux this is exactly the point where pico proc
 \end{figure}
 
 \glqq The virtual machine concept allows the same computer to be shared as if it were several. IBM defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware. \glqq\footnote{R. Rose, \glqq Survey of System Virtualization Techniques \glqq https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v} 
-Therefore it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. \glqq The VMM [Virtual Machine Monitor] is the software component that hosts guest virtual machines.\glqq \footnote{https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v}
-According to Prof. Dr. Kranzmüller and Dr. Danciu the Virtual Machine Monitor is firstly responsible for coordinating the access of the guest operation systems on the host's hardware and secondly for handling traps. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the Virtual Machine Monitor emulates its function in order to be executed on the host operating system. \footnote{Skript!}
+Therefore it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. \glqq The VMM [Virtual Machine Monitor] is the software component that hosts guest virtual machines.\glqq \footnote{https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v} According to Prof. Dr. Kranzmüller and Dr. Danciu the Virtual Machine Monitor is firstly responsible for coordinating the access of the guest operation systems on the host's hardware and secondly for handling traps. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the Virtual Machine Monitor emulates its function in order to be executed on the host operating system. \footnote{Skript!}
 
 \subsection{Virtualization via Container}
 
@@ -150,25 +146,19 @@ According to Prof. Dr. Kranzmüller and Dr. Danciu the Virtual Machine Monitor i
   \label{img:container}
 \end{figure}
 
-Instead of a Virtual Machine Monitor there is a container engine, also called Docker engine running on top on the host operating system which can be seen in the image above. \glqq A container engine is a managed environment for deploying containerized applications. The container engine allocates cores and memory to containers [and] enforces spatial isolation and security [...] \glqq \footnote{https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-containers.html}
+Rather than virtualizing the hardware, containers use the host operating system and share its kernel. According to V. Badola containers are stripped down Virtual Machines running just enough software to deplay an application. \footnote{https://cloudacademy.com/blog/container-virtualization/} Instead of a Virtual Machine Monitor there is a container engine running on top on the host operating system which can be seen in the image above. \glqq A container engine is a managed environment for deploying containerized applications. The container engine allocates cores and memory to containers [and] enforces spatial isolation and security [...] \glqq \footnote{https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-containers.html}
+Due to the fact that there is no guest operating system between a guest application and the host operating system, a container is not as isolated from the host and other containers as a Virtual Machine is.
 
+\subsection{Comparison to Windows Subsystem for Linux}
 
-Dieses Template ist wie folgt gegliedert:
-\Cref{sec:demos} zeigt Demonstrationen der LNI-Verlage.
-\Cref{sec:lniconformance} zeigt die Einhaltung der Richtlinien durch einfachen Text.
+First of all note that while Virtual Machines and Containers can run different types of operating systems and more than one, Windows Subsystem for Linux only supports one Linux instance and of course only Linux.
 
-\section{Demonstrationen}
-\label{sec:demos}
-Das Symbol für Potenzmengen ($\powerset$) wird korrekt angezeigt.
-Es ist kein Weierstraß-p ($\wp$) mehr.
+You can see the LXCore/LXSS as a kind of hypervisor for the Windows Subsystem for Linux, however it does not fit completely. While a Virtual Machine monitor 
+emulates a whole Linux operating system and kernel, the LXCore/LXSS only handles the system calls from the Linux instance. Further, applications running on Virtual Machines communicate with their particular guest operating system and do not have any direct contact with the host operating system. The Windows Subsytem for Linux however stays in touch with the Windows kernel via pico processes, which are then redirected to the LXCore/LXSS. 
 
-Spitze Klammen können direkt eingegeben werden: <test />
+Compared to a Container, LXCore/LXSS works similar to the container engine but again, not entirely. The similarity comes with the fact that containers do not emulate a guest operating system like Virtual Machines do, but instead use the host operating system and kernel. However the LXCore/LXSS does not allocate resources to the Linux instance like a container engine does, but rather lets the Linux instance take care of itself. This leads to the most important aspect.
 
-Hier eine kleine Demonstration von \href{https://www.ctan.org/pkg/microtype}{microtype}:
-\blindtext
-
-\section{Demonstration der Einhaltung der Richtlinien}
-\label{sec:lniconformance}
+Both Virtual Machines and Containers isolate the applications and in case of Virtual Machines also the guest operating system from the host operating system. In Windows Subsystem for Linux this is not the case. The Linux instance operates on the same kernel and even on the same drive. This is best shown by the two implemented file systems. You can access Windows files from within the Linux instance and vice versa which would be impossible for both Virtual Machines and Containers.
 
 \subsection{Literaturverzeichnis}
 Der letzte Abschnitt zeigt ein beispielhaftes Literaturverzeichnis für Bücher mit einem Autor \cite{Ez10} und zwei AutorInnen \cite{AB00}, einem Beitrag in Proceedings mit drei AutorInnen \cite{ABC01}, einem Beitrag in einem LNI Band mit mehr als drei AutorInnen \cite{Az09}, zwei Bücher mit den jeweils selben vier AutorInnen im selben Erscheinungsjahr \cite{Wa14} und \cite{Wa14b}, ein Journal \cite{Gl06}, eine Website \cite{GI14} bzw.\ anderweitige Literatur ohne konkrete AutorInnenschaft \cite{XX14}.

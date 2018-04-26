@@ -1,0 +1,38 @@
+Eine VM virtualisiert ein ganzes Betriebssystem (auch die Hardware). 
+Das heißt, dass ein ganzes Betriebssystem an sich in der virtuellen Maschine läuft. 
+Also auch alle Applikationen etc.  
+Alle Vms, die auf einem Rechner laufen, haben ein voll installiertes Betriebssystem, d.h. dass auch jedes dieser Betriebssysteme 
+sich z.B um die Hardwareaufrufe kümmern muss. 
+Der Hypervisor koordiniert dann den z.B realen Speicherplatz, der der VM zu verfügung gestellt wird.  
+
+Container dagegen teilen sich den BS Kernel. Im Prinzip sind das mehrere VMs die Applikationen ausführen wollen.
+Jede VM hat jetzt kein eigenes Betriebssystem mehr , aber alle Applikationen können noch ausgeführt werden. (über Host BS)
+Das heißt, dass die Virtualisierungsebene bei den Anwedungen selbst Platz findet. Jedes dieser Systeme mit Apllikationen, 
+das jetzt z.B auf die Hardware zugreift, muss nur noch dem Kernel des Host System Bescheid geben, der dann (für alle!)
+die Hardwarezugriffe übersetzt (Deshalb auch größere Sicherheitsprobleme).
+ 
+Container sind viel ressourcensparender, weil alle nur 1 Arbeitsspeicher benutzen. Das heißt - engegen der VMS - muss eine Anwedung nicht 
+vollständig in einen Container (samt Betriebssystem) geladen werden, sondern alle Container benutzen einen Verweis auf die Stelle im Speicher. 
+Anders als bei Vms, die abgeschlossen laufen und daher alle (!) Informationen immer vollständig brauchen.
+
+--> 	Container können Anwedungen ausführen 
+	Vms sind Anwedungen mit eigenem Betriebssystem
+
+Docker sind ähnlich zu einem Hypervisor bei Vms. Mehrere Applikationen müssen koordiniert werden und das funktioniert über Docker.
+
+Containerization -- also called container-based virtualization and application containerization -- is an OS-level virtualization method 
+for deploying and running distributed applications without launching an entire VM for each application. 
+Instead, multiple isolated systems, called containers, are run on a single control host and access a single kernel. 
+(https://searchservervirtualization.techtarget.com/definition/container-based-virtualization-operating-system-level-virtualization, 26.04.2018, 11.22 Uhr)
+
+Containerization gained prominence with the open source Docker, which developed a method to give containers better portability -- allowing 
+them to be moved among any system that shares the host OS type without requiring code changes. With Docker containers, there are 
+no guest OS environment variables or library dependencies to manage. (selber Link) 
+
+[...] um Container bereitzustellen wird daher zunächst ein Host-Betriebssystem anstelle eines Hypervisors installiert. 
+Als nächstes wird eine Virtualisierungsschicht benötigt, die als Anwendung auf dem Host-Betriebssystem ausgeführt wird. 
+Diese Schicht erstellt schließlich Gast-VMs, die als Container bezeichnet werden. Jeder Container kann dann eigene Applikationen – oder 
+Kopien der gleichen Anwendung – ausführen, während sich aber alle Container den gleichen Betriebssystem-Kernel teilen. 
+(https://www.searchdatacenter.de/antwort/Fuer-welche-Workloads-eignet-sich-containerbasierte-Virtualisierung, 11.54 Uhr)
+
+(ob das jetzt zitierwürdige Quellen sind sei mal dahingestellt)

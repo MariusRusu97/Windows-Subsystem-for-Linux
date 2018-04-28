@@ -41,7 +41,7 @@
 %%% Mehrere Autoren werden durch \and voneinander getrennt.
 %%% Die Fußnote enthält die Adresse sowie eine E-Mail-Adresse.
 %%% Das optionale Argument (sofern angegeben) wird für die Kopfzeile verwendet.
-\title[Ein Kurztitel]{Windows Subsystem for Linux}
+\title[WSL]{Windows Subsystem for Linux}
 %%%\subtitle{Untertitel / Subtitle} % falls benötigt
 \author[Marius Rusu \and Julia Sommer]
 {Marius Rusu\footnote{Ludwig-Maximilian-Universität München, Fakultät für Informatik, Oettingenstraße 67, 80538 München, Deutschland \email{rusu.marius97@gmail.com}} \and
@@ -185,74 +185,5 @@ Hinweis: Großes C bei \texttt{Citet}, wenn es am Satzanfang steht. Dies ist ana
 Formatierung und Abkürzungen werden für die Referenzen \texttt{book}, \texttt{inbook}, \texttt{proceedings}, \texttt{inproceedings}, \texttt{article}, \texttt{online} und \texttt{misc} automatisch vorgenommen.
 Mögliche Felder für Referenzen können der Beispieldatei \texttt{lni-paper-example-de.bib} entnommen werden.
 Andere Referenzen sowie Felder müssen allenfalls nachträglich angepasst werden.
-
-\subsection{Abbildungen}
-\Cref{fig:demo} zeigt eine Abbildung.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=.8\textwidth]{example-image}
-  \caption{Demographik}
-  \label{fig:demo}
-\end{figure}
-
-\subsection{Tabellen}
-\Cref{tab:demo} zeigt eine Tabelle.
-
-\begin{table}
-\centering
-\begin{tabular}{lll}
-\toprule
-Überschriftsebenen & Beispiel & Schriftgröße und -art \\
-\midrule
-Titel (linksbündig) & Der Titel \ldots & 14 pt, Fett\\
-Überschrift 1 & 1 Einleitung & 12 pt, Fett\\
-Überschrift 2 & 2.1 Titel & 10 pt, Fett\\
-\bottomrule
-\end{tabular}
-\caption{Die Überschriftsarten}
-\label{tab:demo}
-\end{table}
-
-\subsection{Programmcode}
-Die LNI-Formatvorlage verlangt die Einrückung von Listings vom linken Rand.
-In der \texttt{lni}-Dokumentenklasse ist dies für die \texttt{verbatim}-Umgebung realisiert.
-
-\begin{verbatim}
-public class Hello {
-    public static void main (String[] args) {
-        System.out.println("Hello World!");
-    }
-}
-\end{verbatim}
-
-Alternativ kann auch die \texttt{lstlisting}-Umgebung verwendet werden.
-
-\Cref{L1} zeigt uns ein Beispiel, das mit Hilfe der \texttt{lstlisting}-Umgebung realisiert ist.
-
-\begin{lstlisting}[caption={Beschreibung}, label=L1]
-public class Hello {
-    public static void main (String[] args) {
-        System.out.println("Hello World!");
-    }
-}
-\end{lstlisting}
-
-\subsection{Formeln und Gleichungen}
-
-Die korrekte Einrückung und Nummerierung für Formeln ist bei den Umgebungen \texttt{equation} und \texttt{eqnarray} gewährleistet.
-
-\begin{equation}
-  1=4-3
-\end{equation}
-und
-\begin{eqnarray}
-  2=7-5\\
-  3=2-1
-\end{eqnarray}
-
-%% \bibliography{lni-paper-example-de.tex} ist hier nicht erlaubt: biblatex erwartet dies bei der Preambel
-%% Starten Sie "biber paper", um eine Biliographie zu erzeugen.
-\printbibliography
 
 \end{document}

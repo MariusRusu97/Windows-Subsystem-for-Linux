@@ -54,7 +54,7 @@
 \maketitle
 
 \begin{abstract}
-
+The Windows Subsystem for Linux is a new feature that enables running native Linux command-line tools directly on Windows. This paper shall investigate its architecture and implementation and compare it to other common Linux virtualizations.
 \end{abstract}
 
 \begin{keywords}
@@ -63,8 +63,14 @@ LNI Guidelines \and \LaTeX Vorlage
 
 \section{Microsoft's reasons for WSL}
 
-\section{WSL - What is it?}
+Many programmers that work with open source, Linux based tools such as Pearl and Python are struggeling on Windows. Especially when it comes to server infrastructure, programmers work with applications native to Linux since most of the Servers are also powered by Linux. Those applications unsually do not work great on Windows and programmers depend on workarounds like Containers and Virtual Machines. Alternatively, they switch to Linux or other Unix based operating systems. \footnote{https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/#xKYy1Osl93c7kTAv.97}
 
+Based on their feedback, Microsoft firstly \glqq made investments that improve cmd, PowerShell, and many other command-line tools and developer scenarios [and secondly] decided to grow [their] command line family by adding real, native Bash and with it support for Linux command-line tools which run directly on Windows in an environment that behaves like Linux \glqq \footnote{https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/#xKYy1Osl93c7kTAv.97}
+To accomplish this, Microsoft worked together with Cononical and published the Windows Subsystem for Linux running Ubuntu in April 2016. \footnote{https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/#xKYy1Osl93c7kTAv.97}
+
+
+\section{WSL - What is it?}
+The following will provide information about the Windows Subsystem for Linux, based on Microsoft's publication.
 
 \subsection{General Concept}
 "Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries to run on Windows."\footnote{} User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe running in user mode and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS running in kernel mode.\footnote{ https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/, 18.04.2018 19:32 Uhr}
@@ -123,6 +129,8 @@ In case of Windows subsystem for Linux this is exactly the point where pico proc
 \glqq VolFs is a file system that provides full support for Linux file system features, including Linux permissions that can be modified through operations such as chmod and chroot [etc].\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} Due to the fact that VolFs file system is not able to interoperate with Windows, a second file system named DriveFs is implemented. \glqq All fixed Windows volumes are mounted under /mnt [...] where users can access all Windows files.\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} To make this possible the DriveFs file system meets Windows requirements such as legal file names and Windows security but looses some of the Linux features.
 
 \section{Alternatives to Windows Subsystem for Linux}
+The following will discuss other possibilities of running Linux on Windows and compare them to the Windows Subsystem for Linux.
+
 \subsection{Classical approach to virtualization}
 
 \subsection{Virtualization via Virtual Machine}

@@ -169,6 +169,23 @@ One of the most used container engines is the open source Docker,\glqq [...] whi
 
 \subsection{Comparison to Windows Subsystem for Linux}
 
+In view of all the facts, Windows Subsystem for Linux is neither a Virtual Machine nor a Container but rather something in between. Is not not a fully virtualized Linux operating system which would be the result of a Virtual Machine but is also more than just a Container environment. There are three major differences that result in advantage and disadvantages. 
+
+First of all Windows Subsystem for Linux is not isolated from the host operating system but rather works hand in hand. This can be seen by the fact that processes are directly handled by the host kernel instead of a Virtual Machine Monitor or Container Engine. Further, the file systems VolFs and DriveFs are both accessible from Windows and Linux while Containers and Virtual Machines are usually invisible to each other. This can be a disadvantage especially when running possibly dangerous or unstable programms. While there are security measures, there have been fears that malware can reach Windows via the Linux Subsystem. \footnote{https://www.zdnet.com/article/windows-10s-subsystem-for-linux-heres-how-hackers-could-use-it-to-hide-malware/} It can also be an advantage for the common user that wants to access and edit Windows files with open source, Linux native tools or want to run their programms on both operating systems for debugging without having to launch a Virtual Machine or Container.
+
+Secondly, there exists only one Linux instance for each user. All programms run together under /bin/bash and cannot be separated from each other. Even launching Ubuntu more than once will always result in the same Linux instance.\footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} This is a disadvantage if an isolated environment is needed. This case is similar to the security concerns between Windows und the Linux Subsystem mentioned above but this time it affects programms inside the Linux Instance. In both cases a fully isolated Virtual Machine or 
+Container is the better choice.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{CompileSpeed.pdf}
+  \caption{Compile Benchmark \footnote{https://www.phoronix.com/scan.php?page=article&item=wsl-february-2018&num=2}}
+  \label{img:container}
+\end{figure}
+
+Thirdly, there are differences regarding the performance of those three attemps of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather laggs behind as can be seen in the image above. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities . \glqq If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data. \glqq \footnote{https://blog.qualys.com/news/2018/01/16/meltdown-spectre-mitigation-is-a-work-in-progress} The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace Virtual Machines or Containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as Virtual Machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench.\footnote{https://www.phoronix.com/scan.php?page=article&item=wsl-february-2018&num=2}
+
+
 \begin{comment}
 
 First of all note that while Virtual Machines and Containers can run different types of operating systems and more than one, Windows Subsystem for Linux only supports one Linux instance and of course only Linux.

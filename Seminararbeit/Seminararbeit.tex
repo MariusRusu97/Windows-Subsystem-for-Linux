@@ -1,11 +1,14 @@
+
+
 % !TeX encoding = UTF-8
-% !TeX spellcheck = de_DE
+% !TeX spellcheck = de\\_DE
 
 %% Dies gibt Warnungen aus, sollten veraltete LaTeX-Befehle verwendet werden
 \RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[utf8,biblatex, ngerman, english]{lni}
+\usepackage{url}
+\bibliography{literatur.bib}
 
-\documentclass[utf8,biblatex]{lni}
-\bibliography{lni-paper-example-de}
 
 %% Schöne Tabellen mittels \toprule, \midrule, \bottomrule
 \usepackage{booktabs}
@@ -13,6 +16,8 @@
 %% Zu Demonstrationszwecken
 \usepackage[math]{blindtext}
 \usepackage{mwe}
+
+ 
 
 %% BibLaTeX-Sonderkonfiguration,
 %% falls man schnell eine existierende Bibliographie wiederverwenden will, aber nicht die .bib-Datei händisch anpassen möchte.
@@ -38,6 +43,7 @@
 \fi
 
 \begin{document}
+
 %%% Mehrere Autoren werden durch \and voneinander getrennt.
 %%% Die Fußnote enthält die Adresse sowie eine E-Mail-Adresse.
 %%% Das optionale Argument (sofern angegeben) wird für die Kopfzeile verwendet.
@@ -46,12 +52,14 @@
 \author[Marius Rusu \and Julia Sommer]
 {Marius Rusu\footnote{Ludwig-Maximilian-Universität München, Fakultät für Informatik, Oettingenstraße 67, 80538 München, Deutschland \email{rusu.marius97@gmail.com}} \and
  Julia Sommer\footnote{Technische Universität München, Fakultät für Informatik, Boltzmanstraße 3, 85748 Garching, Deutschland \email{sommerjulia99@gmail.com}}}
-\startpage{11} % Beginn der Seitenzählung für diesen Beitrag
 \editor{Herausgeber et al.}    % Namen der Herausgeber
 \booktitle{Name-der-Konferenz} % Name des Tagungsband
 \year{2017}
 %%%\lnidoi{18.18420/provided-by-editor-02} % Falls bekannt
 \maketitle
+\newpage
+\tableofcontents
+\newpage
 
 \begin{abstract}
 The Windows Subsystem for Linux is a new feature that enables running native Linux command-line tools directly on Windows. This paper shall investigate its architecture and implementation and compare it to other common Linux virtualizations.
@@ -63,36 +71,27 @@ Windows Subsystem for Linux \and Virtualization
 
 \section{Microsoft's reasons for WSL}
 
-Many programmers that work with open source, Linux based tools such as Pearl and Python are struggeling on Windows. Especially when it comes to server infrastructure, programmers work with applications native to Linux since most of the Servers are also powered by Linux. Those applications unsually do not work great on Windows and programmers depend on workarounds like Containers and Virtual Machines. Alternatively, they switch to Linux or other Unix based operating systems. \footnote{https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/#xKYy1Osl93c7kTAv.97}
+Many programmers that work with open source, Linux based tools such as Pearl and Python are struggeling on Windows. Especially when it comes to server infrastructure, programmers work with applications native to Linux since most of the Servers are also powered by Linux. Those applications unsually do not work great on Windows and programmers depend on workarounds like Containers and Virtual Machines. Alternatively, they switch to Linux or other Unix based operating systems. \cite{Mi16}
 
-Based on their feedback, Microsoft firstly \glqq made investments that improve cmd, PowerShell, and many other command-line tools and developer scenarios [and secondly] decided to grow [their] command line family by adding real, native Bash and with it support for Linux command-line tools which run directly on Windows in an environment that behaves like Linux \glqq \footnote{https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/#xKYy1Osl93c7kTAv.97}
-To accomplish this, Microsoft worked together with Cononical and published the Windows Subsystem for Linux running Ubuntu in April 2016. \footnote{https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/#xKYy1Osl93c7kTAv.97}
+Based on their feedback, Microsoft firstly made investments that improve cmd, PowerShell, and many other command-line tools and developer scenarios [and secondly] decided to grow [their] command line family by adding real, native Bash and with it support for Linux command-line tools which run directly on Windows in an environment that behaves like Linux \cite{Mi16}
+To accomplish this, Microsoft worked together with Cononical and published the Windows Subsystem for Linux running Ubuntu in April 2016. \cite{Mi16}
 
 
 \section{WSL - What is it?}
 The following will provide information about the Windows Subsystem for Linux, based on Microsoft's publication.
 
 \subsection{General Concept}
-"Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries to run on Windows."\footnote{} User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe running in user mode and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS running in kernel mode.\footnote{ https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/, 18.04.2018 19:32 Uhr}
+"Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries to run on Windows."\footnote{} User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe running in user mode and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS running in kernel mode.\cite{WSL16}
 
 \subsection{Basic Architecture}
 
-\begin{comment}
 
-(Windows Subsystem for Linux \glqq is primarily comprised of: 
-\begin{enumerate}
-    \item User mode session manager service [...]
-    \item Pico provider drivers [...]
-    \item Pico processes [...] \grqq\footnote{}
-\end{enumerate})
-
-\end{comment}
 
 Windows Subsystem for Linux is primarily comprised of: 
 \begin{enumerate}
     \item LX Session Manager
     \item LXCore/LXSS
-    \item Pico processes\footnote{}
+    \item Pico processes\cite{WSL16}
 \end{enumerate}
 
 \begin{figure}
@@ -102,10 +101,12 @@ Windows Subsystem for Linux is primarily comprised of:
   \label{img:architecture}
 \end{figure}
 
+%%REFERENCE!!
 
-As depicted in the image above, the user initiates the Windows Subsystem for Linux by launching the bash.exe on Windows. This application then calls the LXCore/LXSS (green arrow) which is a "[...] driver behaving like a Linux Kernel and working in coordination with the Windows Kernel. [The Driver] would then spin up a native Linux process [being] /bin/bash (purple arrow)."\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} All other Linux processes run under /bin/bash in the so called Linux Instance that "[...] you can think of as [...] a container or a virtualized operating system environment." \footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
 
-\glqq By wrapping unmodified Linux binaries into pico processes we enable Linux system calls to be directed into the Windows kernel.\grqq \footnote{} A pico process itself is an empty process, as far as the Windows kernel is concerned and therefore cannot be handled by the Windows kernel but instead is redirected to the LXCore/LXSS (red arrow).\footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/}
+As depicted in the image above, the user initiates the Windows Subsystem for Linux by launching the bash.exe on Windows. This application then calls the LXCore/LXSS (green arrow) which is a "[...] driver behaving like a Linux Kernel and working in coordination with the Windows Kernel. [The Driver] would then spin up a native Linux process [being] /bin/bash (purple arrow)."\cite{PP16} All other Linux processes run under /bin/bash in the so called Linux Instance that "[...] you can think of as [...] a container or a virtualized operating system environment." \cite{PP16}
+
+\glqq By wrapping unmodified Linux binaries into pico processes we enable Linux system calls to be directed into the Windows kernel.\grqq \footnote{} A pico process itself is an empty process, as far as the Windows kernel is concerned and therefore cannot be handled by the Windows kernel but instead is redirected to the LXCore/LXSS (red arrow).\cite{PP16}
 It is safe to say, that \glqq pico processes and drivers [LXCore/LXSS] provide the foundation for the Windows Subsystem for Linux [...]. \grqq \footnote{}
 
 \begin{comment}
@@ -116,17 +117,17 @@ As mentioned, those system calls are native Linux system calls. Therefore the LX
 
 \subsection{Implementation of its components}
 
-\glqq The pico process concept originated in MSR [Microsoft Research] as part of the Drawbridge project. A goal of this project was to implement a lightweight way to run an application in an isolated environment, with the application’s OS dependencies decoupled from the underlying host OS\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} This was achieved, not by a Virtual machine, which would be too resource consuming but by \glqq run[ning] the target application and OS entirely within the user-mode address space of a single process on the host OS. \glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} \glqq The Drawbridge pico process is a lightweight, secure isolation container. It is built from an OS process address space, but with all traditional OS services removed. [...] All ABI [Application binary interface] calls are serviced by the security monitor, which plays a role similar to the hypervisor or VM monitor in traditional hardware VM designs.\glqq \footnote{https://www.microsoft.com/en-us/research/project/drawbridge/?from=http\%3A\%2F\%2Fresearch.microsoft.com\%2Fen-us\%2Fproject s\%2Fdrawbridge\%2F}
+\glqq The pico process concept originated in MSR [Microsoft Research] as part of the Drawbridge project. A goal of this project was to implement a lightweight way to run an application in an isolated environment, with the application’s OS dependencies decoupled from the underlying host OS\glqq \cite{PP16}This was achieved, not by a Virtual machine, which would be too resource consuming but by \glqq run[ning] the target application and OS entirely within the user-mode address space of a single process on the host OS. \glqq \cite{PP16} \glqq The Drawbridge pico process is a lightweight, secure isolation container. It is built from an OS process address space, but with all traditional OS services removed. [...] All ABI [Application binary interface] calls are serviced by the security monitor, which plays a role similar to the hypervisor or VM monitor in traditional hardware VM designs.\glqq \cite{Db11}
 
-In case of Windows subsystem for Linux this is exactly the point where pico processes are redirected to the LXCore/LXSS. \glqq The drivers do not contain code from the Linux kernel but are instead a clean room implementation of Linux-compatible kernel interfaces. [..] Where possible, lxcore.sys translates the Linux syscall to the equivalent Windows NT call which in turn does the heavy lifting. Where there is no reasonable mapping the Windows kernel mode driver must service the request directly.\glqq \footnote{} Since the Windows Kernel was originally designed to support multiple operating systems, Microsoft had to \glqq [dust] [...] of old functionality, [enhance] it for performance and correctness and it was able to go right away.\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/05/23/pico-process-overview/} Those changes in the Windows kernel enable it to execute even foreign operations like fork(). Windows applications however do not have access to those specific Linux system calls. \footnote{}
+In case of Windows subsystem for Linux this is exactly the point where pico processes are redirected to the LXCore/LXSS. \glqq The drivers do not contain code from the Linux kernel but are instead a clean room implementation of Linux-compatible kernel interfaces. [..] Where possible, lxcore.sys translates the Linux syscall to the equivalent Windows NT call which in turn does the heavy lifting. Where there is no reasonable mapping the Windows kernel mode driver must service the request directly.\glqq \footnote{} Since the Windows Kernel was originally designed to support multiple operating systems, Microsoft had to \glqq [dust] [...] of old functionality, [enhance] it for performance and correctness and it was able to go right away.\glqq \cite{PP16} Those changes in the Windows kernel enable it to execute even foreign operations like fork(). Windows applications however do not have access to those specific Linux system calls. \footnote{}
 
 \glqq The File system support in WSL was designed to meet two goals:
 \begin{enumerate}
     \item Provide an environment that supports the full fidelity of Linux file systems
     \item Allow interoperability with drives and files in Windows
-\end{enumerate}\footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/}
+\end{enumerate}\cite{WSL16}
 
-\glqq VolFs is a file system that provides full support for Linux file system features, including Linux permissions that can be modified through operations such as chmod and chroot [etc].\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} Due to the fact that VolFs file system is not able to interoperate with Windows, a second file system named DriveFs is implemented. \glqq All fixed Windows volumes are mounted under /mnt [...] where users can access all Windows files.\glqq \footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} To make this possible the DriveFs file system meets Windows requirements such as legal file names and Windows security but looses some of the Linux features.
+\glqq VolFs is a file system that provides full support for Linux file system features, including Linux permissions that can be modified through operations such as chmod and chroot [etc].\glqq \cite{WSL16} Due to the fact that VolFs file system is not able to interoperate with Windows, a second file system named DriveFs is implemented. \glqq All fixed Windows volumes are mounted under /mnt [...] where users can access all Windows files.\glqq \cite{WSL16} To make this possible the DriveFs file system meets Windows requirements such as legal file names and Windows security but looses some of the Linux features.
 
 \section{Alternatives to Windows Subsystem for Linux}
 The following will discuss other possibilities of running Linux on Windows and compare them to the Windows Subsystem for Linux.
@@ -142,8 +143,9 @@ The following will discuss other possibilities of running Linux on Windows and c
   \label{img:vm}
 \end{figure}
 
-\glqq The virtual machine concept allows the same computer to be shared as if it were several. IBM defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware. \glqq\footnote{R. Rose, \glqq Survey of System Virtualization Techniques \glqq https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v} 
-Therefore it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. \glqq The VMM [Virtual Machine Monitor] is the software component that hosts guest virtual machines.\glqq \footnote{https://ir.library.oregonstate.edu/concern/parent/t148fh24b/file_sets/0r967383v} According to Prof. Dr. Kranzmüller and Dr. Danciu the Virtual Machine Monitor is firstly responsible for coordinating the access of the guest operation systems on the host's hardware and secondly for handling traps. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the Virtual Machine Monitor emulates its function in order to be executed on the host operating system. \footnote{Skript!}
+
+\glqq The virtual machine concept allows the same computer to be shared as if it were several. IBM defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware. \cite{Ss01} 
+Therefore it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. \glqq The VMM [Virtual Machine Monitor] is the software component that hosts guest virtual machines.\glqq \cite{Ss01} According to Prof. Dr. Kranzmüller and Dr. Danciu the Virtual Machine Monitor is firstly responsible for coordinating the access of the guest operation systems on the host's hardware and secondly for handling traps. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the Virtual Machine Monitor emulates its function in order to be executed on the host operating system. \footnote{Skript!}
 
 \begin{figure}
   \centering
@@ -163,27 +165,27 @@ A common tool for creating a virtual machine is VMware Player by VMware Inc. Thi
   \label{img:container}
 \end{figure}
 
-Rather than virtualizing the hardware, containers use the host operating system and share its kernel. According to V. Badola containers are stripped down Virtual Machines running just enough software to deploy an application. \footnote{https://cloudacademy.com/blog/container-virtualization/} Instead of a Virtual Machine Monitor there is a container engine running on top on the host operating system which can be seen in the image above. \glqq A container engine is a managed environment for deploying containerized applications. The container engine allocates cores and memory to containers [and] enforces spatial isolation and security [...] \glqq \footnote{https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-containers.html} 
+Rather than virtualizing the hardware, containers use the host operating system and share its kernel. According to V. Badola containers are stripped down Virtual Machines running just enough software to deploy an application. \cite{Cv15} Instead of a Virtual Machine Monitor there is a container engine running on top on the host operating system which can be seen in the image above. \glqq A container engine is a managed environment for deploying containerized applications. The container engine allocates cores and memory to containers [and] enforces spatial isolation and security [...] \glqq \cite{VC17}
 
-One of the most used container engines is the open source Docker,\glqq [...] which developed a method to give containers better portability [...]. With Docker containers, there are no guest OS environment variables or library dependencies to manage. \glqq \footnote{https://searchservervirtualization.techtarget.com/definition/container-based-virtualization-operating-system-level-virtualization} In order to run a container in Docker, a so called Dockerfile is needed. \glqq Dockerfile instructions provide the Docker Engine with the steps needed to create a container image.\glqq \footnote{https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-docker/manage-windows-dockerfile} Dockerfiles contain firstly the image of the system environment of the container, secondly the application to run and thirdly the port for communication between host and container. Docker Hub provides users with a collection of images e.g. Ubuntu for download. All those steps are done in the console and a text editor for the Dockerfile, since there is no graphic interface.
+One of the most used container engines is the open source Docker,\glqq [...] which developed a method to give containers better portability [...]. With Docker containers, there are no guest OS environment variables or library dependencies to manage. \glqq \cite{cz} In order to run a container in Docker, a so called Dockerfile is needed. \glqq Dockerfile instructions provide the Docker Engine with the steps needed to create a container image.\glqq \cite{DW16} Dockerfiles contain firstly the image of the system environment of the container, secondly the application to run and thirdly the port for communication between host and container. Docker Hub provides users with a collection of images e.g. Ubuntu for download. All those steps are done in the console and a text editor for the Dockerfile, since there is no graphic interface.
 
 \subsection{Comparison to Windows Subsystem for Linux}
 
 In view of all the facts, Windows Subsystem for Linux is neither a Virtual Machine nor a Container but rather something in between. Is not not a fully virtualized Linux operating system which would be the result of a Virtual Machine but is also more than just a Container environment. There are three major differences that result in advantage and disadvantages. 
 
-First of all Windows Subsystem for Linux is not isolated from the host operating system but rather works hand in hand. This can be seen by the fact that processes are directly handled by the host kernel instead of a Virtual Machine Monitor or Container Engine. Further, the file systems VolFs and DriveFs are both accessible from Windows and Linux while Containers and Virtual Machines are usually invisible to each other. This can be a disadvantage especially when running possibly dangerous or unstable programms. While there are security measures, there have been fears that malware can reach Windows via the Linux Subsystem. \footnote{https://www.zdnet.com/article/windows-10s-subsystem-for-linux-heres-how-hackers-could-use-it-to-hide-malware/} It can also be an advantage for the common user that wants to access and edit Windows files with open source, Linux native tools or want to run their programms on both operating systems for debugging without having to launch a Virtual Machine or Container.
+First of all Windows Subsystem for Linux is not isolated from the host operating system but rather works hand in hand. This can be seen by the fact that processes are directly handled by the host kernel instead of a Virtual Machine Monitor or Container Engine. Further, the file systems VolFs and DriveFs are both accessible from Windows and Linux while Containers and Virtual Machines are usually invisible to each other. This can be a disadvantage especially when running possibly dangerous or unstable programms. While there are security measures, there have been fears that malware can reach Windows via the Linux Subsystem. \cite{Wh17} It can also be an advantage for the common user that wants to access and edit Windows files with open source, Linux native tools or want to run their programms on both operating systems for debugging without having to launch a Virtual Machine or Container.
 
-Secondly, there exists only one Linux instance for each user. All programms run together under /bin/bash and cannot be separated from each other. Even launching Ubuntu more than once will always result in the same Linux instance.\footnote{https://blogs.msdn.microsoft.com/wsl/2016/04/22/windows-subsystem-for-linux-overview/} This is a disadvantage if an isolated environment is needed. This case is similar to the security concerns between Windows und the Linux Subsystem mentioned above but this time it affects programms inside the Linux Instance. In both cases a fully isolated Virtual Machine or 
+Secondly, there exists only one Linux instance for each user. All programms run together under /bin/bash and cannot be separated from each other. Even launching Ubuntu more than once will always result in the same Linux instance.\cite{WSL16} This is a disadvantage if an isolated environment is needed. This case is similar to the security concerns between Windows und the Linux Subsystem mentioned above but this time it affects programms inside the Linux Instance. In both cases a fully isolated Virtual Machine or 
 Container is the better choice.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{CompileSpeed.pdf}
-  \caption{Compile Benchmark \footnote{https://www.phoronix.com/scan.php?page=article&item=wsl-february-2018&num=2}}
+  \caption{Compile Benchmark} %\footnote{https://www.phoronix.com/scan.php?page=article\&item=wsl-february-2018\&num=2} !!!!!!!!!
   \label{img:container}
 \end{figure}
 
-Thirdly, there are differences regarding the performance of those three attemps of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather laggs behind as can be seen in the image above. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities . \glqq If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data. \glqq \footnote{https://blog.qualys.com/news/2018/01/16/meltdown-spectre-mitigation-is-a-work-in-progress} The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace Virtual Machines or Containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as Virtual Machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench.\footnote{https://www.phoronix.com/scan.php?page=article&item=wsl-february-2018&num=2}
+Thirdly, there are differences regarding the performance of those three attemps of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather laggs behind as can be seen in the image above. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities . \glqq If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data. \grqq \cite{Md18} The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace Virtual Machines or Containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as Virtual Machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench.\cite{LP18}
 
 
 \begin{comment}
@@ -197,9 +199,10 @@ Compared to a Container, LXCore/LXSS works similar to the container engine but a
 
 Both Virtual Machines and Containers isolate the applications and in case of Virtual Machines also the guest operating system from the host operating system. In Windows Subsystem for Linux this is not the case. The Linux instance operates on the same kernel and even on the same drive. This is best shown by the two implemented file systems. You can access Windows files from within the Linux instance and vice versa which would be impossible for both Virtual Machines and Containers.
 
-\end{comment}
+
 
 \subsection{Literaturverzeichnis}
+
 Der letzte Abschnitt zeigt ein beispielhaftes Literaturverzeichnis für Bücher mit einem Autor \cite{Ez10} und zwei AutorInnen \cite{AB00}, einem Beitrag in Proceedings mit drei AutorInnen \cite{ABC01}, einem Beitrag in einem LNI Band mit mehr als drei AutorInnen \cite{Az09}, zwei Bücher mit den jeweils selben vier AutorInnen im selben Erscheinungsjahr \cite{Wa14} und \cite{Wa14b}, ein Journal \cite{Gl06}, eine Website \cite{GI14} bzw.\ anderweitige Literatur ohne konkrete AutorInnenschaft \cite{XX14}.
 Es wird biblatex verwendet, da es UTF8 sauber unterstützt und \href{https://github.com/gi-ev/LNI/issues/5}{im Gegensatz zu lni.bst} keine Fehler beim bibtexen auftreten.
 
@@ -210,5 +213,8 @@ Hinweis: Großes C bei \texttt{Citet}, wenn es am Satzanfang steht. Dies ist ana
 Formatierung und Abkürzungen werden für die Referenzen \texttt{book}, \texttt{inbook}, \texttt{proceedings}, \texttt{inproceedings}, \texttt{article}, \texttt{online} und \texttt{misc} automatisch vorgenommen.
 Mögliche Felder für Referenzen können der Beispieldatei \texttt{lni-paper-example-de.bib} entnommen werden.
 Andere Referenzen sowie Felder müssen allenfalls nachträglich angepasst werden.
+\end{comment}
+\newpage
+\printbibliography
 
 \end{document}

@@ -97,7 +97,7 @@ Windows Subsystem for Linux is primarily comprised of:
 \begin{figure}
   \centering
   \includegraphics[width=1\textwidth]{WSL Architecture.pdf}
-  \caption{Components of WSL}
+  \caption{Components of WSL \cite{WSL16}}
   \label{img:architecture}
 \end{figure}
 
@@ -132,8 +132,6 @@ In case of Windows subsystem for Linux this is exactly the point where pico proc
 \section{Alternatives to Windows Subsystem for Linux}
 The following will discuss other possibilities of running Linux on Windows and compare them to the Windows Subsystem for Linux.
 
-\subsection{Classical approach to virtualization}
-
 \subsection{Virtualization via Virtual Machine}
 
 \begin{figure}
@@ -144,7 +142,7 @@ The following will discuss other possibilities of running Linux on Windows and c
 \end{figure}
 
 
-\glqq The virtual machine concept allows the same computer to be shared as if it were several. IBM defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware. \cite{Ss01} 
+\glqq The virtual machine concept allows the same computer to be shared as if it were several. IBM (International Business Machines Corporation) defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware. \cite{Ss01} 
 Therefore it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. \glqq The VMM [Virtual Machine Monitor] is the software component that hosts guest virtual machines.\glqq \cite{Ss01} According to Prof. Dr. Kranzmüller and Dr. Danciu the Virtual Machine Monitor is firstly responsible for coordinating the access of the guest operation systems on the host's hardware and secondly for handling traps. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the Virtual Machine Monitor emulates its function in order to be executed on the host operating system. \footnote{Skript!}
 
 \begin{figure}
@@ -154,7 +152,7 @@ Therefore it is possible to run different applications on different operating sy
   \label{img:VMwarePlayer}
 \end{figure}
 
-A common tool for creating a virtual machine is VMware Player by VMware Inc. This application hides all the work of the Virtual Machine Monitor and comes with a graphic interface that can be seen above (Window 1). For creating a new virtual machine an image file of the guest operating system is needed, which can be either on a disc or downloaded from the internet (Window 2). After this, the user can decide on how many ressources, e.g. memory space and CPU cores the new virtual machine can use (Window 3). Finally, VMware Player launches the guest operating system in a new window as a fully functional and isolated operating system.
+A common tool for creating a virtual machine is VMware Player by VMware Inc. This application hides all the work of the Virtual Machine Monitor and comes with a graphic interface that can be seen above (Window 1)\ref{img:VMwarePlayer}. For creating a new virtual machine an image file of the guest operating system is needed, which can be either on a disc or downloaded from the internet (Window 2). After this, the user can decide on how many ressources, e.g. memory space and CPU cores the new virtual machine can use (Window 3). Finally, VMware Player launches the guest operating system in a new window as a fully functional and isolated operating system.
 
 \subsection{Virtualization via Container}
 
@@ -171,7 +169,7 @@ One of the most used container engines is the open source Docker,\glqq [...] whi
 
 \subsection{Comparison to Windows Subsystem for Linux}
 
-In view of all the facts, Windows Subsystem for Linux is neither a Virtual Machine nor a Container but rather something in between. Is not not a fully virtualized Linux operating system which would be the result of a Virtual Machine but is also more than just a Container environment. There are three major differences that result in advantage and disadvantages. 
+In view of all the facts, Windows Subsystem for Linux is neither a Virtual Machine nor a Container but rather something in between. Is not a fully virtualized Linux operating system which would be the result of a Virtual Machine but is also more than just a Container environment. There are three major differences that result in advantage and disadvantages. 
 
 First of all Windows Subsystem for Linux is not isolated from the host operating system but rather works hand in hand. This can be seen by the fact that processes are directly handled by the host kernel instead of a Virtual Machine Monitor or Container Engine. Further, the file systems VolFs and DriveFs are both accessible from Windows and Linux while Containers and Virtual Machines are usually invisible to each other. This can be a disadvantage especially when running possibly dangerous or unstable programms. While there are security measures, there have been fears that malware can reach Windows via the Linux Subsystem. \cite{Wh17} It can also be an advantage for the common user that wants to access and edit Windows files with open source, Linux native tools or want to run their programms on both operating systems for debugging without having to launch a Virtual Machine or Container.
 
@@ -187,34 +185,8 @@ Container is the better choice.
 
 Thirdly, there are differences regarding the performance of those three attemps of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather laggs behind as can be seen in the image above. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities . \glqq If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data. \grqq \cite{Md18} The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace Virtual Machines or Containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as Virtual Machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench.\cite{LP18}
 
-
-\begin{comment}
-
-First of all note that while Virtual Machines and Containers can run different types of operating systems and more than one, Windows Subsystem for Linux only supports one Linux instance and of course only Linux.
-
-You can see the LXCore/LXSS as a kind of hypervisor for the Windows Subsystem for Linux, however it does not fit completely. While a Virtual Machine monitor 
-emulates a whole Linux operating system and kernel, the LXCore/LXSS only handles the system calls from the Linux instance. Further, applications running on Virtual Machines communicate with their particular guest operating system and do not have any direct contact with the host operating system. The Windows Subsytem for Linux however stays in touch with the Windows kernel via pico processes, which are then redirected to the LXCore/LXSS. 
-
-Compared to a Container, LXCore/LXSS works similar to the container engine but again, not entirely. The similarity comes with the fact that containers do not emulate a guest operating system like Virtual Machines do, but instead use the host operating system and kernel. However the LXCore/LXSS does not allocate resources to the Linux instance like a container engine does, but rather lets the Linux instance take care of itself. This leads to the most important aspect.
-
-Both Virtual Machines and Containers isolate the applications and in case of Virtual Machines also the guest operating system from the host operating system. In Windows Subsystem for Linux this is not the case. The Linux instance operates on the same kernel and even on the same drive. This is best shown by the two implemented file systems. You can access Windows files from within the Linux instance and vice versa which would be impossible for both Virtual Machines and Containers.
-
-
-
-\subsection{Literaturverzeichnis}
-
-Der letzte Abschnitt zeigt ein beispielhaftes Literaturverzeichnis für Bücher mit einem Autor \cite{Ez10} und zwei AutorInnen \cite{AB00}, einem Beitrag in Proceedings mit drei AutorInnen \cite{ABC01}, einem Beitrag in einem LNI Band mit mehr als drei AutorInnen \cite{Az09}, zwei Bücher mit den jeweils selben vier AutorInnen im selben Erscheinungsjahr \cite{Wa14} und \cite{Wa14b}, ein Journal \cite{Gl06}, eine Website \cite{GI14} bzw.\ anderweitige Literatur ohne konkrete AutorInnenschaft \cite{XX14}.
-Es wird biblatex verwendet, da es UTF8 sauber unterstützt und \href{https://github.com/gi-ev/LNI/issues/5}{im Gegensatz zu lni.bst} keine Fehler beim bibtexen auftreten.
-
-Referenzen sollten nicht direkt als Subjekt eingebunden werden, sondern immer nur durch Authorenanganben:
-Beispiel: \Citet{AB00} geben ein Beispiel, aber auch \citet{Az09}.
-Hinweis: Großes C bei \texttt{Citet}, wenn es am Satzanfang steht. Dies ist analog zu \texttt{Cref}.
-
-Formatierung und Abkürzungen werden für die Referenzen \texttt{book}, \texttt{inbook}, \texttt{proceedings}, \texttt{inproceedings}, \texttt{article}, \texttt{online} und \texttt{misc} automatisch vorgenommen.
-Mögliche Felder für Referenzen können der Beispieldatei \texttt{lni-paper-example-de.bib} entnommen werden.
-Andere Referenzen sowie Felder müssen allenfalls nachträglich angepasst werden.
-\end{comment}
 \newpage
+\section{References}
 \printbibliography
 
 \end{document}

@@ -184,6 +184,26 @@ Container is the better choice.
 \end{figure}
 
 Thirdly, there are differences regarding the performance of those three attemps of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather laggs behind as can be seen in the image above. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities . \glqq If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data. \grqq \cite{Md18} The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace Virtual Machines or Containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as Virtual Machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench.\cite{LP18}
+\begin{table}
+\centering
+\begin{tabular}{|l||l||l|l|} 
+\hline
+& WSL & VMwarePlayer & Docker \\ \hline 
+Core instances & LXSS/LXCore &  VMM & Docker Engine \\ \hline 
+Range of Virtualization & Ubuntu Bash & Any guest OS & Any guest process \\ \hline
+Isolation from host OS & Not isolated, cooperation & Completely isolated & Isolated \\ \hline
+Parallel running units & Only one Linux instance & More than one  & More than one \\ \hline
+Isolation between running units & -  &  Completely isolated & Isolated, but sharing kernel\\ \hline 
+Sharing file system &  Sharing with host OS & Not sharing with host OS & Not sharing with host OS \\ 
+& & or units & \\ \hline
+I/O speed & Very slow & Fast & Very Fast \\ \hline
+Use of hardware ressources & Very low & Very high & Low \\ \hline
+
+\end{tabular}
+\caption{Comparison ofWSL, VMware Player and Docker}
+\label{tab:demo}
+\end{table}
+
 
 \newpage
 \section{References}

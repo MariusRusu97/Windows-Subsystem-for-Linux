@@ -204,6 +204,8 @@ Use of hardware ressources & Very low & Very high & Low \\ \hline
 \label{tab:demo}
 \end{table}
 
+\subsection{Conclusion}
+WSL uses the Windows Kernel to execute pico processes via the LXCore/LXSS, that maps Linux system calls to equivalent Windows system calls. Those pico processes are, as far as the Windows Kernel is concerned, empty processes and are therefore redirected to the LXCore/LXSS for handeling. This procedure is new and distinguishes itself from VMs and Containers. It is more user-friendly and ressource saving but does not quite reach the performance of the classic approaches. Therefore WSL is a good alternative for multi-platform programmers and those who want to use native Linux software, especially when the tasks are not too expensive. However, when it comes to commercial use, such as server hosting WSL does not provide the requested performance and speed.
 
 \newpage
 \section{References}

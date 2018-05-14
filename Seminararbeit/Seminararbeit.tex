@@ -183,7 +183,9 @@ Container is the better choice.
   \label{img:container}
 \end{figure}
 
-Thirdly, there are differences regarding the performance of those three attemps of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather laggs behind as can be seen in the image above. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities . \glqq If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data. \grqq \cite{Md18} The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace Virtual Machines or Containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as Virtual Machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench.\cite{LP18}
+Thirdly, there are differences regarding the performance of those three attemps of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather laggs behind as can be seen in the image above. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities . \glqq If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data. \grqq \cite{Md18} The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace Virtual Machines or Containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as Virtual Machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench.\cite{LP18} Further WSL is far less ressource consuming than both VMware Player and Docker and therefore does have a very little impact on the host OS performance.
+
+
 \begin{table}
 \centering
 \begin{tabular}{|l||l||l|l|} 
@@ -205,7 +207,7 @@ Use of hardware ressources & Very low & Very high & Low \\ \hline
 \end{table}
 
 \subsection{Conclusion}
-WSL uses the Windows Kernel to execute pico processes via the LXCore/LXSS, that maps Linux system calls to equivalent Windows system calls. Those pico processes are, as far as the Windows Kernel is concerned, empty processes and are therefore redirected to the LXCore/LXSS for handeling. This procedure is new and distinguishes itself from VMs and Containers. It is more user-friendly and ressource saving but does not quite reach the performance of the classic approaches. Therefore WSL is a good alternative for multi-platform programmers and those who want to use native Linux software, especially when the tasks are not too expensive. However, when it comes to commercial use, such as server hosting WSL does not provide the requested performance and speed.
+Windows Subsystem for Linux uses the Windows Kernel to execute pico processes via the LXCore/LXSS, that maps Linux system calls to equivalent Windows system calls. Those pico processes are, as far as the Windows Kernel is concerned, empty processes and are therefore redirected to the LXCore/LXSS for handeling. This procedure is new and distinguishes itself from Virtual Machines and Containers. It is more user-friendly and ressource saving but does not quite reach the performance of the classic approaches. Therefore Windows Subsystem for Linux is a good alternative for multi-platform programmers and those who want to use native Linux software, especially when the tasks are not too expensive. However, when it comes to commercial use, such as server hosting Windows Subsystem for Linux does not provide the requested performance and speed.
 
 \newpage
 \section{References}

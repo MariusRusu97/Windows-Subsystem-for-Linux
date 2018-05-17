@@ -81,18 +81,18 @@ To accomplish this, Microsoft worked together with Cononical and published the W
 The following will provide information about the Windows Subsystem for Linux, based on Microsoft's publication.
 
 \subsection{General Concept}
-"Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries to run on Windows \cite{Ha16b}." User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe running in user mode and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS running in kernel mode \cite{Ha16b}.
+"Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries to run on Windows \cite{Ha16b}."\ User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe running in user mode and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS running in kernel mode \cite{Ha16b}.
 
 \subsection{Basic Architecture}
 
 
 
-Windows Subsystem for Linux \grqq is primarily comprised of: 
+Windows Subsystem for Linux "\ is primarily comprised of: 
 \begin{enumerate}
     \item LX Session Manager
     \item LXCore/LXSS
     \item Pico processes
-\end{enumerate}\cite{Ha16b}\grqq
+\end{enumerate}\cite{Ha16b}"
 
 \begin{figure}
   \centering
@@ -103,14 +103,14 @@ Windows Subsystem for Linux \grqq is primarily comprised of:
 
 As depicted in the image above \ref{img:architecture}, the user initiates the Windows Subsystem for Linux by launching the bash.exe on Windows. According to Nick Judge, this application then calls the LXCore/LXSS (green arrow) which is a driver behaving like a Linux Kernel and working in coordination with the Windows Kernel. The Driver would then spin up a native Linux process being /bin/bash (purple arrow). All other Linux processes run under /bin/bash in the so called Linux Instance that you can think of as a container or a virtualized operating system environment \cite{Ha16a}."
 
-"By wrapping unmodified Linux binaries into pico processes we enable Linux system calls to be directed into the Windows kernel \cite{Ha16b}." A pico process itself is an empty process, as far as the Windows kernel is concerned and therefore cannot be handled by the Windows kernel but instead is redirected to the LXCore/LXSS (red arrow) \cite{Ha16a}.
-Therefore \grqq "pico processes and drivers [LXCore/LXSS] provide the foundation for the Windows Subsystem for Linux\grqq \cite{Ha16b}."
+"By wrapping unmodified Linux binaries into pico processes we enable Linux system calls to be directed into the Windows kernel \cite{Ha16b}."\ A pico process itself is an empty process, as far as the Windows kernel is concerned and therefore cannot be handled by the Windows kernel but instead is redirected to the LXCore/LXSS (red arrow) \cite{Ha16a}.
+Therefore "pico processes and drivers [LXCore/LXSS] provide the foundation for the Windows Subsystem for Linux\cite{Ha16b}."
 
 \subsection{Implementation of its components}
 
-"The pico process concept originated in MSR [Microsoft Research] as part of the Drawbridge project. A goal of this project was to implement a lightweight way to run an application in an isolated environment, with the application’s OS dependencies decoupled from the underlying host OS" \cite{Ha16a}. This was achieved, not by a Virtual machine, which would be too resource consuming but by "run[ning] the target application and OS entirely within the usermode address space of a single process on the host OS \cite{Ha16a}". The Drawbridge pico process is a lightweight, secure isolation container. It is built from an OS process address space, but with all traditional OS services removed. \grqq All ABI [Application binary interface] calls are serviced by the security monitor, which plays a role similar to the hypervisor or VM monitor in traditional hardware VM designs \cite{11}.\grqq
+"The pico process concept originated in MSR [Microsoft Research] as part of the Drawbridge project. A goal of this project was to implement a lightweight way to run an application in an isolated environment, with the application’s OS dependencies decoupled from the underlying host OS \cite{Ha16a}."\ This was achieved, not by a Virtual machine, which would be too resource consuming but by "run[ning] the target application and OS entirely within the usermode address space of a single process on the host OS \cite{Ha16a}". The Drawbridge pico process is a lightweight, secure isolation container. It is built from an OS process address space, but with all traditional OS services removed. "\ All ABI [Application binary interface] calls are serviced by the security monitor, which plays a role similar to the hypervisor or VM monitor in traditional hardware VM designs \cite{11}."
 
-In case of Windows subsystem for Linux this is exactly the point where pico processes are redirected to the LXCore/LXSS. "The drivers do not contain code from the Linux kernel but are instead a clean room implementation of Linux-compatible kernel interfaces. [..] Where possible, lxcore.sys translates the Linux syscall to the equivalent Windows NT call which in turn does the heavy lifting. Where there is no reasonable mapping the Windows kernel mode driver must service the request directly \cite{Ha16b}." Since the Windows Kernel was originally designed to support multiple operating systems, Microsoft had to dust of old functionality, enhance it for performance and correctness and it was able to go right away, says Nick Judge \cite{Ha16a}. Those changes in the Windows kernel enable it to execute even foreign operations like fork(). Windows applications however do not have access to those specific Linux system calls.
+In case of Windows subsystem for Linux this is exactly the point where pico processes are redirected to the LXCore/LXSS. "The drivers do not contain code from the Linux kernel but are instead a clean room implementation of Linux-compatible kernel interfaces. [..] Where possible, lxcore.sys translates the Linux syscall to the equivalent Windows NT call which in turn does the heavy lifting. Where there is no reasonable mapping the Windows kernel mode driver must service the request directly \cite{Ha16b}."\ Since the Windows Kernel was originally designed to support multiple operating systems, Microsoft had to dust of old functionality, enhance it for performance and correctness and it was able to go right away, says Nick Judge \cite{Ha16a}. Those changes in the Windows kernel enable it to execute even foreign operations like fork(). Windows applications however do not have access to those specific Linux system calls.
 
 "The File system support in WSL was designed to meet two goals:
 \begin{enumerate}
@@ -118,7 +118,7 @@ In case of Windows subsystem for Linux this is exactly the point where pico proc
     \item Allow interoperability with drives and files in Windows 
 \end{enumerate}\cite{Ha16b}"
 
-\grqq VolFs is a file system that provides full support for Linux file system features, including Linux permissions that can be modified through operations such as chmod and chroot [...]\cite{Ha16b}\grqq and others. Due to the fact that VolFs file system is not able to interoperate with Windows, a second file system named DriveFs is implemented. \grqq All fixed Windows volumes are mounted under /mnt/c, /mnt/d, etc. [...]. This is where users can access all Windows files \cite{Ha16b}." \ \ To make this possible the DriveFs file system meets Windows requirements such as legal file names and Windows security but looses some of the Linux features.
+"VolFs is a file system that provides full support for Linux file system features, including Linux permissions that can be modified through operations such as chmod and chroot [...]\cite{Ha16b}"\ and other features. Due to the fact that VolFs file system is not able to interoperate with Windows, a second file system named DriveFs is implemented. "\ All fixed Windows volumes are mounted under /mnt/c, /mnt/d, etc. [...]. This is where users can access all Windows files\cite{Ha16b}."\ To make this possible the DriveFs file system meets Windows requirements such as legal file names and Windows security but looses some of the Linux features.
 
 \section{Alternatives to Windows Subsystem for Linux}
 The following will discuss other possibilities of running Linux on Windows and compare them to the Windows Subsystem for Linux.
@@ -133,7 +133,7 @@ The following will discuss other possibilities of running Linux on Windows and c
 \end{figure}
 
 
-"The virtual machine concept allows the same computer to be shared as if it were several. IBM [(International Business Machines Corporation)] defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware \cite[p. 2]{Ro01}." \ \
+"The virtual machine concept allows the same computer to be shared as if it were several. IBM [(International Business Machines Corporation)] defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware \cite[p. 2]{Ro01}."\ 
 Therefore it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. "The VMM [(Virtual Machine Monitor)] is the software component that hosts guest virtual machines \cite[p. 3]{Ro01}." \ \ The Virtual Machine Monitor is firstly responsible for coordinating the access of the guest operation systems on the host's hardware and secondly for handling traps. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the Virtual Machine Monitor emulates its function in order to be executed on the host operating system.
 
 \begin{figure}
@@ -143,7 +143,7 @@ Therefore it is possible to run different applications on different operating sy
   \label{img:VMwarePlayer}
 \end{figure}
 
-A common tool for creating a virtual machine is VMware Player by VMware Inc. This application hides all the work of the Virtual Machine Monitor and comes with a graphic interface that can be seen above (Window 1)\ \ \ref{img:VMwarePlayer}. For creating a new virtual machine an image file of the guest operating system is needed, which can be either on a disc or downloaded from the internet (Window 2)\ \ \ref{img:VMwarePlayer}. After this, the user can decide on how many ressources, e.g. memory space and CPU cores the new virtual machine can use (Window 3)\ \ \ref{img:VMwarePlayer}. Finally, VMware Player launches the guest operating system in a new window as a fully functional and isolated operating system.
+A common tool for creating a virtual machine is VMware Player by VMware Inc. This application hides all the work of the Virtual Machine Monitor and comes with a graphic interface that can be seen above (Window 1)\ \ref{img:VMwarePlayer}. For creating a new virtual machine an image file of the guest operating system is needed, which can be either on a disc or downloaded from the internet (Window 2)\ \ref{img:VMwarePlayer}. After this, the user can decide on how many ressources, e.g. memory space and CPU cores the new virtual machine can use (Window 3)\ \ref{img:VMwarePlayer}. Finally, VMware Player launches the guest operating system in a new window as a fully functional and isolated operating system.
 
 \subsection{Virtualization via Container}
 
@@ -156,7 +156,7 @@ A common tool for creating a virtual machine is VMware Player by VMware Inc. Thi
 
 Rather than virtualizing the hardware, containers use the host operating system and share its kernel. According to V. Badola containers are "\ stripped down Virtual Machines running just enough software to deploy an application \cite{Ba15}."\ \ Instead of a Virtual Machine Monitor there is a container engine running on top on the host operating system which can be seen in the image below \ref{img:container}. "\ A container engine is a managed environment for deploying containerized applications. The container engine allocates cores and memory to containers [and] enforces spatial isolation and security [...] \cite{Do17}."
 
-One of the most used container engines is the open source Docker, which developed a method to give containers better portability. According to Margaret Rouse "with Docker containers, there are no guest OS environment variables or library dependencies to manage \cite{Ma}." \ In order to run a container in Docker, a so called Dockerfile is needed. "Dockerfile instructions provide the Docker Engine with the steps needed to create a container image \cite{La16}."\ Dockerfiles contain firstly the image of the system environment of the container, secondly the application to run and thirdly the port for communication between host and container. Docker Hub provides users with a collection of images e.g. Ubuntu for download. All those steps are done in the console and a text editor for the Dockerfile, since there is no graphic interface.
+One of the most used container engines is the open source Docker, which developed a method to give containers better portability. According to Margaret Rouse "with Docker containers, there are no guest OS environment variables or library dependencies to manage \cite{Ma}."\ In order to run a container in Docker, a so called Dockerfile is needed. "Dockerfile instructions provide the Docker Engine with the steps needed to create a container image \cite{La16}."\ Dockerfiles contain firstly the image of the system environment of the container, secondly the application to run and thirdly the port for communication between host and container. Docker Hub provides users with a collection of images e.g. Ubuntu for download. All those steps are done in the console and a text editor for the Dockerfile, since there is no graphic interface.
 
 \subsection{Comparison to Windows Subsystem for Linux}
 
@@ -164,7 +164,7 @@ In view of all the facts, Windows Subsystem for Linux is neither a Virtual Machi
 
 First of all Windows Subsystem for Linux is not isolated from the host operating system but rather works hand in hand. This can be seen by the fact that processes are directly handled by the host kernel instead of a Virtual Machine Monitor or Container Engine. Further, the file systems VolFs and DriveFs are both accessible from Windows and Linux while Containers and Virtual Machines are usually invisible to each other. This can be a disadvantage especially when running possibly dangerous or unstable programms. While there are security measures, there have been fears that malware can reach Windows via the Linux Subsystem. \cite{Tu17}. It can also be an advantage for the common user that wants to access and edit Windows files with open source, Linux native tools or want to run their programms on both operating systems for debugging without having to launch a Virtual Machine or Container.
 
-Secondly, there exists only one Linux instance for each user. All programms run together under /bin/bash and cannot be separated from each other. Even launching Ubuntu more than once will always result in the same Linux instance\cite{Ha16b}. This is a disadvantage if an isolated environment is needed. This case is similar to the security concerns between Windows und the Linux Subsystem mentioned above but this time it affects programms inside the Linux Instance. In both cases a fully isolated Virtual Machine or 
+Secondly, there exists only one Linux instance for each user. All programms run together under /bin/bash and cannot be separated from each other. Even launching Ubuntu more than once will always result in thae same Linux instance\cite{Ha16b}. This is a disadvantage if an isolated environment is needed. This case is similar to the security concerns between Windows und the Linux Subsystem mentioned above but this time it affects programms inside the Linux Instance. In both cases a fully isolated Virtual Machine or 
 Container is the better choice.
 
 \begin{figure}

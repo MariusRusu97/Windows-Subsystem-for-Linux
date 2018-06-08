@@ -1,0 +1,30 @@
+sprachliche Fehler:
+	- Komma
+	- Wortwiederholungen
+	- Formulierung
+	- Groß- und Kleinschreibung
+
+Struktur:
+	- kein Inhaltsverzeichnis?
+	- mehr Keywords
+	- Vergleich VM - Container
+
+Abstract:
+	- Englisch verbessern
+
+Einleitung:
+	- Formulierungen
+	- Tempus
+	- letzter Absatz verlagern 
+
+General Concept:
+	- allgemeiner erklären
+	- Begriffe erläutern
+
+Figures und Zitate:
+	- Tabelle verschönern
+	- zu viele direkte Zitate
+	- Benchmark-Bild erklären
+
+Abschnitt 3.3 verbessern
+

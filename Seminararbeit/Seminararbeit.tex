@@ -50,7 +50,7 @@
 \title[WSL]{Windows Subsystem for Linux}
 %%%\subtitle{Untertitel / Subtitle} % falls benötigt
 \author[Marius Rusu \and Julia Sommer]
-{Marius Rusu\footnote{Ludwig-Maximilian-Universität München, Fakultät für Informatik, Oettingenstraße 67, 80538 München, Deutschland \email{rusu.marius97@gmail.com}} \and
+{Marius Rusu\footnote{Ludwig-Maximilians-Universität München, Fakultät für Informatik, Oettingenstraße 67, 80538 München, Deutschland \email{rusu.marius97@gmail.com}} \and
  Julia Sommer\footnote{Technische Universität München, Fakultät für Informatik, Boltzmanstraße 3, 85748 Garching, Deutschland \email{sommerjulia99@gmail.com}}}
 \editor{Ludwig-Maximilian Universität München}    % Namen der Herausgeber
 \booktitle{Seminar Virtualisierte Systeme} % Name des Tagungsband
@@ -62,27 +62,23 @@
 \newpage
 
 \begin{abstract}
-The Windows Subsystem for Linux (WSL) is a new feature that enables running native Linux command-line tools directly on Windows. This paper shall investigate its architecture and implementation and compare it to other common Linux virtualizations such as virtual machines and Containers in particular. We came to the conclusion that there are three key differences: Isolation from the host operating system, number of instances and performance. Our results show that Windows Subsystem for Linux might not be developed enough to replace more common virtulizations of the Linux operation systems yet. We anticipate our project paper to give an idea on how different virtualizations of operating systems work and give stimulus for possible improvements of the Windows Subsystem for Linux. 
+The Windows Subsystem for Linux (WSL) is a new feature that makes it possible to run native Linux command-line tools directly on Windows. This paper shall investigate its architecture and implementation and compare it to other common Linux virtualizations, such as virtual machines and containers. We concluded that there are differences regarding the level of isolation from the host operating system, the number of instances and the performance. Our results show that Windows Subsystem for Linux might not yet be optimized enough to replace more common virtulizations of the Linux operation systems. We anticipate our project paper to give an idea on how different virtualizations of operating systems work and give stimulus for possible improvements of the Windows Subsystem for Linux. 
 \end{abstract}
 
 \begin{keywords}
-Windows Subsystem for Linux \and Virtualization
+Windows Subsystem for Linux \and virtualization \and Linux virtualization \and container \and virtual machine
 \end{keywords}
 
 \section{Microsoft's reasons for WSL}
 
-Many programmers that work with open source, Linux based tools such as Pearl and Python are struggling on Windows. Especially when it comes to server infrastructure, programmers work with applications native to Linux since most of the Servers are also powered by Linux. Those applications usually do not work great on Windows and programmers depend on workarounds like Containers and virtual machines. Alternatively, they switch to Linux or other Unix based operating systems \cite{Ha16c}.\\
-Based on their feedback, Microsoft made investments that improve cmd, PowerShell and many other command-line tools and developer scenarios. According to Mike Harsh, they further decided to grow their command line family by adding real, native Bash and with it support for Linux command-line tools which run directly on Windows in an environment that behaves like Linux.
-To accomplish this, Microsoft worked together with Cononical and published the Windows Subsystem for Linux running Ubuntu in April 2016 \cite{Ha16c}. \\
-Due to the fact, that Windows Subsystem for Linux is still developing and a young invention there has been little documentation on its potential being compared to other forms of virtualization. Therefore the aim of this project paper is to approach the differences comparing Windows Subsystem for Linux to other common virtualizations.  
-Furthermore this paper will expound the components and implementation of Windows subsystem for Linux, give an insight into the workings of virtual machines and Containers and finally state the consequent results.
-
+Many programmers that work with open source, Linux based tools such as Pearl and Python are struggling on Windows. Especially when it comes to server infrastructure, programmers work with applications native to Linux since most of the Servers are also powered by Linux. Those applications are usually not optimized for Windows and programmers depend on workarounds like containers and virtual machines. Alternatively, they switch to Linux or other Unix based operating systems \cite{Ha16c}.\\
+Based on their feedback, Microsoft made investments that improve cmd, PowerShell and many other command-line tools and developer scenarios. According to Mike Harsh, they further decided to grow their command line family by adding real, native Bash and with it support for Linux command-line tools, which run directly on Windows in an environment that behaves like Linux. To accomplish this, Microsoft worked together with Cononical and published the Windows Subsystem for Linux in April 2016 \cite{Ha16c}. 
 
 \section{Windows Subsystem for Linux}
 The following will provide information about the Windows Subsystem for Linux, based on Microsoft's publication.
 
 \subsection{General Concept}
-"Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries to run on Windows \cite{Ha16b}."\ User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe running in user mode and initiating the Linux Instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS running in kernel mode \cite{Ha16b}.
+"Windows Subsystem for Linux is a collection of [user mode and kernel mode] components that enable native Linux ELF64 binaries [, which can be compared to Windows' .exe] to run on Windows \cite{Ha16b}."\ User mode applications are low privileged and depend on system calls to operate on kernel mode. Only in kernel mode low level operations directly handled by the operating system can be executed. In WSL we have the bash.exe, similar to the Windows command prompt, running in user mode and initiating the Linux instance. Further this instance submits, if necessary, native Linux system calls to be executed on a Linux Kernel. However, by virtualizing a Linux Kernel interface those system calls can be executed directly on the Windows Kernel. This virtualization is done by the LXCore/LXSS (Linux Core/Linux Subsystem) running in kernel mode \cite{Ha16b}.
 
 \subsection{Basic Architecture}
 

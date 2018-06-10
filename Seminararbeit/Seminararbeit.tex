@@ -171,26 +171,14 @@ Secondly, there exists only one Linux instance for each user. All programs run t
 Thirdly, there are differences regarding the performance of those three attempts of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather lags behind as can be seen in the image above \ref{img:speed}. The Windows Subsystem for Linux is only able to compile 6.38 MB/s, while the virtual machine VirtualBox compiles 285.24 MB/s and Docker even 427.97 MB/s, which is about 70 times faster. This issue has even become worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities. "\ If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data \cite{Pe18}."\ The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace virtual machines or containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as virtual machines and Containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench \cite{La18}. Further Windows Subsystem for Linux is far less resource consuming than both VMware Player and Docker and therefore does have a very little impact on the host OS performance. A summary of those aspects can be seen below (\ref{tab:demo}).
 
 \clearpage
-\begin{table}[!htbp]
-\centering
-\begin{tabular}{|l||l||l|l|} 
-\hline
-& WSL & VMwarePlayer & Docker \\ \hline 
-Core instances & LXSS/LXCore &  VMM & Docker Engine \\ \hline 
-Range of Virtualization & Ubuntu Bash & Any guest OS & Any guest process \\ \hline
-Isolation from host OS & Not isolated, cooperation & Completely isolated & Isolated \\ \hline
-Parallel running units & Only one Linux Instance & More than one  & More than one \\ \hline
-Isolation between running units & -  &  Completely isolated & Isolated, but sharing kernel\\ \hline 
-Sharing file system &  Sharing with host OS & Not sharing with host OS & Not sharing with host OS \\ 
-& & or units & \\ \hline
-I/O speed & Very slow & Fast & Very Fast \\ \hline
-Use of hardware resources & Very low & Very high & Low \\ \hline
 
-\end{tabular}
-\caption{Comparison of WSL, VMware Player and Docker}
-\label{tab:demo}
-\end{table}
-
+\begin{figure}
+ % \centering
+ \hspace{-3.8mm}
+  \includegraphics[width=1.048\textwidth]{Tabelle.PNG}
+  \caption{Comparison of WSL, VMware Player and Docker}
+  \label{tab:demo} 
+\end{figure}
 
 \section{Conclusion}
 Windows Subsystem for Linux uses the Windows kernel to execute Pico processes via the LXCore/LXSS, that maps Linux system calls to equivalent Windows system calls. Those Pico processes are, as far as the Windows kernel is concerned, empty processes and are therefore redirected to the LXCore/LXSS for handling. This procedure is new and distinguishes itself from virtual machines and containers. It is more user-friendly and resource saving but does not quite reach the performance of the classic approaches. Therefore Windows Subsystem for Linux is a good alternative for multi-platform programmers and those who want to use native Linux software, especially when the tasks are not too expensive. However, when it comes to commercial use, such as server hosting Windows Subsystem for Linux does not provide the requested performance and speed.

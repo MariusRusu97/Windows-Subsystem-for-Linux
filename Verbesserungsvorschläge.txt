@@ -1,8 +1,8 @@
 sprachliche Fehler:
 	- Komma							(mostly bullshit)
-	- Wortwiederholungen
+	- Wortwiederholungen		
 	- Formulierungen
-	- Groß- und Kleinschreibung
+	- Groß- und Kleinschreibung		(done)
 
 Struktur:
 	- kein Inhaltsverzeichnis
@@ -22,8 +22,8 @@ General Concept:
 
 Figures und Zitate:
 	- Tabelle verschönern
-	- zu viele direkte Zitate
-	- Benchmark-Bild erklären
+	- zu viele direkte Zitate		
+	- Benchmark-Bild erklären		(done)
 
 Abschnitt 3.3 verbessern
 

@@ -57,8 +57,6 @@
 \year{2017}
 %%%\lnidoi{18.18420/provided-by-editor-02} % Falls bekannt
 \maketitle
-\newpage
-\newpage
 
 \begin{abstract}
 The Windows Subsystem for Linux (WSL) is a new feature that makes it possible to run native Linux command-line tools directly on Windows 10. This paper shall investigate its architecture and implementation and compare it to other common Linux virtualizations, such as virtual machines and containers. We conclude that there are differences regarding the level of isolation from the host operating system, the number of instances and the performance. Our results show that Windows Subsystem for Linux might not yet be optimized enough to replace more common virtualizations of the Linux operating systems. We anticipate our project paper to provide an overview of how different virtualizations of operating systems work and stimulate for possible improvements of the Windows Subsystem for Linux. 
@@ -97,7 +95,7 @@ Windows Subsystem for Linux "\ is primarily comprised of:
   \label{img:architecture}
 \end{figure}
 
-As depicted in the image above (\ref{img:architecture}), the user initiates the Windows Subsystem for Linux by launching the bash.exe on Windows. According to Nick Judge, this application then calls the LXCore/LXSS (green arrow), which is a driver behaving like a Linux kernel and working in coordination with the Windows kernel. The driver would then spin up the native Linux process /bin/bash (purple arrow), which is the Linux standard-shell. All other Linux processes run under /bin/bash in the so-called Linux instance that can be considered as a container or a virtualized operating system environment \cite{Ha16a}.
+As depicted in the image below (\ref{img:architecture}), the user initiates the Windows Subsystem for Linux by launching the bash.exe on Windows. According to Nick Judge, this application then calls the LXCore/LXSS (green arrow), which is a driver behaving like a Linux kernel and working in coordination with the Windows kernel. The driver would then spin up the native Linux process /bin/bash (purple arrow), which is the Linux standard-shell. All other Linux processes run under /bin/bash in the so-called Linux instance that can be considered as a container or a virtualized operating system environment \cite{Ha16a}.
 
 "By wrapping unmodified Linux binaries into Pico processes, we enable Linux system calls to be directed into the Windows kernel \cite{Ha16b}."\ A Pico process itself is an empty process, as far as the Windows kernel is concerned and therefore cannot be handled by the Windows kernel, but instead is redirected to the LXCore/LXSS (red arrow) \cite{Ha16a}.
 Therefore "Pico processes and drivers [LXCore/LXSS] provide the foundation for the Windows Subsystem for Linux \cite{Ha16b}."
@@ -131,7 +129,7 @@ The following will discuss other possibilities of running Linux on Windows and c
 
 
 "The virtual machine concept allows the same computer to be shared as if it were several. IBM [(International Business Machines Corporation)] defined the virtual machine as a fully protected and isolated copy of the underlying physical machine’s hardware \cite[p. 2]{Ro01}."\ 
-Therefore, it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above. The VMM (virtual machine monitor) is responsible for hosting the guest virtual machine \cite[p. 3]{Ro01} (\ref{img:vm}). Its task is firstly to coordinate the access of the guest operating systems on the host's hardware and secondly to handle traps adequately. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the virtual machine Monitor emulates its function in order to be executed on the host operating system.
+Therefore, it is possible to run different applications on different operating systems at the same time on the same hardware as depicted in the image above (\ref{img:vm}). The VMM (virtual machine monitor) is responsible for hosting the guest virtual machine \cite[p. 3]{Ro01}. Its task is firstly to coordinate the access of the guest operating systems on the host's hardware and secondly to handle traps adequately. Traps are created when a guest operating system is trying to execute a privileged operation. In that case, the virtual machine Monitor emulates its function in order to be executed on the host operating system.
 
 \begin{figure}
   \centering
@@ -160,11 +158,10 @@ Dockerfiles contain firstly the image of the system environment of the container
 
 \subsection{Comparison to Windows Subsystem for Linux}
 
-In view of all the facts, Windows Subsystem for Linux is neither a virtual machine nor a container, but rather something in between. It is not a fully virtualized Linux operating system, which would be the result of a virtual machine, but it is also more than just a container environment. There are three major differences that result both, in advantages and disadvantages. 
+In view of all the facts, Windows Subsystem for Linux is neither a virtual machine nor a container, but rather something in between. It is not a fully virtualized Linux operating system, which would be the result of a virtual machine, but it is also more than just a container environment. There are three major differences that result both, in advantages and disadvantages.
+
 
 First of all, Windows Subsystem for Linux is not isolated from the host operating system but rather works hand in hand. This can be seen by the fact that processes are directly handled by the host kernel instead of a virtual machine monitor or container engine. Further, the file systems VolFs and DriveFs are both accessible from Windows and Linux, while containers and virtual machines are usually invisible to each other. This can be a disadvantage, especially when running possibly dangerous or unstable programs. Even though there are security measures, there have been fears that malware can reach Windows via the Linux Subsystem. \cite{Tu17}. It can also be an advantage for common users, who want to access and edit Windows files with open source, Linux-native tools or want to run their programs on both operating systems for debugging, without having to launch a virtual machine or container.
-
-Secondly, there exists only one Linux instance for each user. All programs run together under /bin/bash and cannot be separated from each other. Even launching Ubuntu more than once will always result in the same Linux instance \cite{Ha16b}. This is a disadvantage when an isolated environment is needed. This case is similar to the security concerns between Windows and the Linux Subsystem mentioned above, but this time it affects programs inside the Linux instance. In both cases a fully isolated virtual machine or container is the better choice.
 
 \begin{figure}
   \centering
@@ -172,6 +169,10 @@ Secondly, there exists only one Linux instance for each user. All programs run t
   \caption{Compile benchmark} \cite{La18} 
   \label{img:speed}
 \end{figure}
+
+Secondly, there exists only one Linux instance for each user. All programs run together under /bin/bash and cannot be separated from each other. Even launching Ubuntu more than once will always result in the same Linux instance \cite{Ha16b}. This is a disadvantage when an isolated environment is needed. This case is similar to the security concerns between Windows and the Linux Subsystem mentioned above, but this time it affects programs inside the Linux instance. In both cases a fully isolated virtual machine or container is the better choice.
+
+
 
 Thirdly, there are differences regarding the performance of those three attempts of virtualization. According to tests run by Phoronix, the I/O performance of the Windows Subsystem for Linux rather lags behind as can be seen in the image above (\ref{img:speed}). The Windows Subsystem for Linux is only able to compile 6.38 MB/s, while the virtual machine VirtualBox compiles 285.24 MB/s and Docker even 427.97 MB/s, which is about 70 times faster. This issue has become even worse since the Spectre/Meltdown updates, which were supposed to mitigate those security vulnerabilities. "\ If exploited, these vulnerabilities can give hackers unprecedented access to compromised systems and widespread liberty to steal a broad variety of confidential, sensitive data \cite{Pe18}."\ The poor I/O performance is certainly the biggest disadvantage of the Windows Subsystem for Linux and the reason it cannot fully replace virtual machines or containers yet. On the other hand, Windows Subsystem for Linux performs at least as good as virtual machines and containers when it comes to MP3/FFMPEG encoding and many other benchmarks e.g. AOBench \cite{La18}. Further, Windows Subsystem for Linux is far less resource consuming than both VMware Player and Docker and therefore does have very little impact on the host OS performance. A summary of those aspects can be seen below (\ref{tab:demo}).
 
@@ -181,13 +182,11 @@ Thirdly, there are differences regarding the performance of those three attempts
   \label{tab:demo} 
 \end{figure}
 
-\clearpage
 \section{Conclusion} 
 The Windows Subsytem for Linux offers accustomed Linux users a simple way to access common Linux features on Windows 10.
 It uses the Windows kernel to execute Pico processes via the LXCore/LXSS, that maps Linux system calls to equivalent Windows system calls. Those Pico processes are, as far as the Windows kernel is concerned, empty processes and are therefore redirected to the LXCore/LXSS for handling. This procedure is new and distinguishes itself from virtual machines and containers. In addition, it is more user-friendly and resource saving, but does not quite reach the performance of the classic approaches. Therefore, Windows Subsystem for Linux is a good alternative for multi-platform programmers and those who want to use native Linux software, especially when the tasks are not too expensive. However, when it comes to commercial use, such as server hosting, Windows Subsystem for Linux does not provide the requested performance and speed yet. Altogether WSL represents an interesting approach on virtualization and with Microsoft working on optimizations it has the potential to prove 
 itself as a practical alternative to virtual machines and containers. 
 
-\newpage
 \addcontentsline{toc}{section}{References}
 \printbibliography
 
